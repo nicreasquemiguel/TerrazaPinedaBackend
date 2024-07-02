@@ -138,8 +138,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'terraza',
         'USER': 'mixel',
-        'PASSWORD' : 'cool',
-        'HOST' : 'localhost', #localcost
+        'PASSWORD' : '3NsZ1ufzxQnu4uvkMmhZ',
+        'HOST' : 'database-django.czm88mqccmno.us-east-1.rds.amazonaws.com', #localcost
+        'PORT': '5432',
     }
 }
 
