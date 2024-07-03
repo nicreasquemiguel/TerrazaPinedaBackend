@@ -22,7 +22,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 import datetime
-class VenueListAPIView(generics.ListAPIView):
+class VenueListAPIView(generics.ListCreateAPIView):
     queryset = Venue.objects.all()
     serializer_class = VenueSerializer
 
