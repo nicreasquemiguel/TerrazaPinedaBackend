@@ -57,8 +57,16 @@ CORS_ALLOW_METHODS = (
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_ALL_ORIGINS = True
 
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = False
+
+
 CORS_ALLOW_CREDENTIALS = True
-CSRF_TRUSTED_ORIGINS = [ "http://0.0.0.0", "http://localhost", "http://192.168.100.15", "http://127.0.0.1","http://100.28.126.133/" ]
+CSRF_TRUSTED_ORIGINS = [ "*" ]
+# CSRF_TRUSTED_ORIGINS = [ "http://0.0.0.0", "http://localhost", "http://192.168.100.15", "http://127.0.0.1","http://100.28.126.133/" ]
+
 SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
 
 # Application definition
