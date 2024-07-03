@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+import boto3
 from environs import Env
 from datetime import timedelta
 
@@ -64,10 +65,23 @@ SECURE_SSL_REDIRECT = False
 
 CORS_ALLOW_CREDENTIALS = True
 # CSRF_TRUSTED_ORIGINS = [ "*" ]
-CSRF_TRUSTED_ORIGINS = [ "http://0.0.0.0", "http://localhost", "http://192.168.100.15", "http://127.0.0.1","http://100.28.126.133/" ]
+CSRF_TRUSTED_ORIGINS = [ "http://0.0.0.0", "http://localhost", "http://192.168.100.15", "http://127.0.0.1","http://100.28.126.133" ]
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
 
+
+# AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+# AWS_REGION = os.environ.get('AWS_REGION')
+
+
+# session = boto3.Session(
+#     aws_access_key_id=AWS_ACCESS_KEY_ID,
+#     aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+#     region_name=AWS_REGION
+# )
+
+# secrets_manager = session.client('secretsmanager')
 # Application definition
 
 INSTALLED_APPS = [
