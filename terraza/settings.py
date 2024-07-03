@@ -41,7 +41,6 @@ CORS_ALLOW_HEADERS = "*"
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
     "http://localhost:5173",
-    'http://100.28.126.133/',
 ]
 
 CORS_ALLOW_METHODS = (
