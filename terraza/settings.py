@@ -65,7 +65,7 @@ SECURE_SSL_REDIRECT = False
 CSRF_COOKIE_DOMAIN = '127.0.0.1'
 CORS_ALLOW_CREDENTIALS = True
 # CSRF_TRUSTED_ORIGINS = [ "*" ]
-CSRF_TRUSTED_ORIGINS = [ "http://0.0.0.0", "http://localhost", "http://192.168.100.15", "http://127.0.0.1","http://100.28.126.133" ]
+CSRF_TRUSTED_ORIGINS = [ "http://0.0.0.0", "http://localhost", "http://192.168.100.15", "http://127.0.0.1","http://44.222.197.163" ]
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
 
