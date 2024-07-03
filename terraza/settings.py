@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
-import boto3
+# import boto3
 from environs import Env
 from datetime import timedelta
 
