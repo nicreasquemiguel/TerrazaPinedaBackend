@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-virtualenv /home/ubuntu/env
+virtualenv /home/ubuntu/terraza/env
 source /home/ubuntu/env/bin/activate
-pip install -r /home/ubuntu/terraza/requirements.txt
+pip3 install -r /home/ubuntu/terraza/requirements.txt
