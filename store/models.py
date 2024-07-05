@@ -79,6 +79,7 @@ class CartOrderItem(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     country = models.CharField(max_length=100, blank=True)
 
+
     initial_total = models.DecimalField(default=0.00, max_digits=12, decimal_places=2)
     saved = models.DecimalField(default=0.00, max_digits=12, decimal_places=2)
     oid = ShortUUIDField(unique=True, length=10, alphabet='abcdefg12345')
