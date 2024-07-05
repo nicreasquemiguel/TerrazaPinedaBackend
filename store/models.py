@@ -70,7 +70,6 @@ class CartOrderItem(models.Model):
     order = models.ForeignKey(CartOrder, on_delete=models.CASCADE)
     vendor = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    
     qty = models.PositiveIntegerField(default = 0)
     price = models.DecimalField(default=0.00, max_digits=12, decimal_places=2)
     tax_fee = models.DecimalField(default=0.00, max_digits=12, decimal_places=2)
