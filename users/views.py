@@ -12,7 +12,6 @@ class ProfileView(generics.RetrieveAPIView):
 
     def get_object(self):
         user_id = self.kwargs['user_id']
-
         user = UserAccount.objects.get(id=user_id)
         profile = Profile.objects.get(user=user)
         return profile
