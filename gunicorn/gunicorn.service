@@ -6,7 +6,7 @@ After=network.target
 User=ubuntu
 Group=www-data
 WorkingDirectory=/home/ubuntu/terraza
-ExecStart=/home/ubuntu/env/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/ubuntu/terraza/terraza/blterrazaog.sock terraza.wsgi:application
+ExecStart=/home/ubuntu/env/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/ubuntu/terraza/terraza/terraza.sock terraza.wsgi:application
 
        
 [Install]
