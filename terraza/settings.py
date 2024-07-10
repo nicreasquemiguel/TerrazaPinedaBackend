@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 
+from decouple import config
+
 from environs import Env
 from datetime import timedelta
 
@@ -23,7 +25,7 @@ env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SITE_URL = "http://127.0.0.1:8000/"
+SITE_URL = config('SITE_URL')
 
 
 # Quick-start development settings - unsuitable for production
@@ -82,6 +84,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
+    
     #Internal apps
     'booking',
     'users',
@@ -99,6 +103,7 @@ INSTALLED_APPS = [
     'shortuuid.django_fields',
     'drf_yasg',
     'rest_framework_swagger',
+
     
     
 ]
@@ -218,8 +223,8 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'email, first_name, last_name'
 }
 
-STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY")
-STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
+STRIPE_PUBLIC_KEY = config("STRIPE_PUBLIC_KEY")
+STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
