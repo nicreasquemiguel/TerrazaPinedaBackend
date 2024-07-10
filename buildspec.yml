@@ -18,7 +18,7 @@ phases:
   pre_build:
     commands:
       - echo Prebuild ops 
-      - echo $STRIPE_PUBLIC_KEY
+      - echo ${STRIPE_PUBLIC_KEY}
       - pip3 install -r requirements.txt
   build:
     commands:
