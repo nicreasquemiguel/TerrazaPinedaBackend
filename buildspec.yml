@@ -1,7 +1,7 @@
 version: 0.1
 
 env:
-  secrets-manager:
+  plaintext:
     DJANGO_SETTINGS_MODULE: config.settings.test
     SECRET_KEY: nosecret
     DATABASE_DEFAULT_URL: sqlite:///db1.sqlite3
