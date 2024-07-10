@@ -1,6 +1,6 @@
 #!/usr/bin/bash 
 
-sed -i 's/\[]/\["100.28.126.133"]/' /home/ubuntu/terraza/terraza/settings.py
+sed -i 's/\[]/\["54.198.189.219"]/' /home/ubuntu/terraza/terraza/settings.py
 
 python3 manage.py migrate 
 python3 manage.py makemigrations     
