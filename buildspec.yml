@@ -10,9 +10,7 @@ enviroment-variables:
     STREAM_INCOMING_PUBLIC_KEY: changem
     GOOGLE_API_KEY: chang
     OPBEAT_ENABLED: False
-    STRIPE_PUBLIC_KEY: pk_test_51LUzLpAyaVFmKoiDa8pAoBrJbvWAi953aAOXWPwz7oSt4hSjuiohV65VDFvKcJ0A8P2ylR4GCZ4CV8jdHLlVjjq600HLTe60t4
-    STRIPE_SECRET_KEY: sk_test_51LUzLpAyaVFmKoiDJXVHDyRoG1WjaAzVK4dVlaFtbz4Obbi6ptU5LHRhMhs9zf01SJEvjeA7Bs6sLSFsDdvSXdJS00EADny2I1
-    SITE_URL: http://127.0.0.1:8000/
+
 
 phases:
   pre_build:
