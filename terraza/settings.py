@@ -25,7 +25,10 @@ env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SITE_URL = config('SITE_URL')
+# SITE_URL = config('SITE_URL')
+STRIPE_PUBLIC_KEY ="pk_test_51LUzLpAyaVFmKoiDa8pAoBrJbvWAi953aAOXWPwz7oSt4hSjuiohV65VDFvKcJ0A8P2ylR4GCZ4CV8jdHLlVjjq600HLTe60t4"
+STRIPE_SECRET_KEY="sk_test_51LUzLpAyaVFmKoiDJXVHDyRoG1WjaAzVK4dVlaFtbz4Obbi6ptU5LHRhMhs9zf01SJEvjeA7Bs6sLSFsDdvSXdJS00EADny2I1"
+SITE_URL="http://127.0.0.1:8000/"
 
 
 # Quick-start development settings - unsuitable for production
@@ -223,8 +226,8 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'email, first_name, last_name'
 }
 
-STRIPE_PUBLIC_KEY = config("STRIPE_PUBLIC_KEY")
-STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
+# STRIPE_PUBLIC_KEY = config("STRIPE_PUBLIC_KEY")
+# STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
