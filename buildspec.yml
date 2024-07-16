@@ -8,7 +8,7 @@ environment_variables:
     DATABASE_STREAMDATA_URL: sqlite:///db2.sqlite3
     STREAM_INCOMING_PRIVATE_KEY: changeme
     STREAM_INCOMING_PUBLIC_KEY: changeme
-    GOOGLE_API_KEY: changeme
+    GOOGLE_API_KEY: sfd
     OPBEAT_ENABLED: False
 
 
