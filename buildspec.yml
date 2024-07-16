@@ -8,16 +8,13 @@ environment_variables:
     DATABASE_STREAMDATA_URL: sqlite:///db2.sqlite3
     STREAM_INCOMING_PRIVATE_KEY: changeme
     STREAM_INCOMING_PUBLIC_KEY: changeme
-    GOOGLE_API_KEY: sfd
+    GOOGLE_API_KEY: changeme
     OPBEAT_ENABLED: False
-
 
 phases:
   pre_build:
     commands:
-      - echo Prebuild ops 
-      - echo ${STRIPE_PUBLIC_KEY}
-      - echo $AWS_REGION
+      - echo Prebuild ops
       - pip3 install -r requirements.txt
   build:
     commands:
