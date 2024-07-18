@@ -39,7 +39,7 @@ SECRET_KEY = 'django-insecure-#d9cu$k5cfwsos9ou=p%p_6d-m52khr137%x8_y2i90)da623d
 DEBUG = True
 
 ALLOWED_HOSTS=['*']
-CORS_ALLOW_HEADERS = "*"
+
 
 
 CORS_ALLOWED_ORIGINS = [
@@ -47,28 +47,14 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
 ]
 
-CORS_ALLOW_METHODS = (
-    "DELETE",
-    "GET",
-    "OPTIONS",
-    "PATCH",
-    "POST",
-    "PUT",
-)
-
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_ALL_ORIGINS = True
 
 
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = False
-
-CSRF_COOKIE_DOMAIN = '127.0.0.1'
 CORS_ALLOW_CREDENTIALS = True
 # CSRF_TRUSTED_ORIGINS = [ "*" ]
-CSRF_TRUSTED_ORIGINS = [ "http://0.0.0.0", "http://localhost", "http://192.168.100.15", "http://127.0.0.1","http://52.90.173.244" ]
+CSRF_TRUSTED_ORIGINS = [ "http://0.0.0.0", "http://localhost", "http://127.0.0.1","http://52.90.173.244" ]
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
 
@@ -187,8 +173,6 @@ REST_FRAMEWORK = {
 DOMAIN = 'localhost:5173' #localhost
 
 
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = True
 
 #DJOSER
 DJOSER = {
