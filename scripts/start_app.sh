@@ -5,7 +5,7 @@ sed -i 's/\[]/\["52.90.173.244"]/' /home/ubuntu/terraza/terraza/settings.py
 python3 manage.py migrate 
 python3 manage.py makemigrations     
 python3 manage.py collectstatic
-
+screen -d -m python3 manage.py runserver 0:8000
 sudo service gunicorn restart
 sudo service nginx restart
 #sudo tail -f /var/log/nginx/error.log
