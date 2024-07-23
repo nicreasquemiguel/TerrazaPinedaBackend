@@ -14,7 +14,7 @@ urlpatterns = [
     path('eventos/', EventListAPIView.as_view()),
     path('add-event/', EventListAPIView.as_view()),
     path('eventos/ocupados/', DatesOccupiedListAPIVIEW.as_view()),
-    path('eventos/<int:pk>', EventDetailAPIView.as_view()),
+    path('eventos/<int:eid>', EventDetailAPIView.as_view()),
     path('user/profile/<user_id>/', ProfileView.as_view(), name='user_profile'),
     path('rules/', RuleListAPIView.as_view(), name='rules'),
     path('sitios-activos', VenueActiveListAPIView.as_view()),
