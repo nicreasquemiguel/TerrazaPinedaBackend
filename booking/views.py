@@ -112,7 +112,7 @@ class EventListAPIView(generics.ListCreateAPIView):
         event.extras.add(*extrasList)
         event.save()
 
-        return Response({"message": "Event added successfully", "event_id":event.id}, status=status.HTTP_200_OK)
+        return Response({"message": "Event added successfully", "event_id":event.eid}, status=status.HTTP_200_OK)
 
 
 
