@@ -4,7 +4,7 @@ import stripe.error
 from .models import Venue, Package, Event, Extra, Rule
 from users.models import UserAccount, Profile
 from store.models import Cart, CartOrder, CartOrderItem, Tax, Coupon
-from .serializers import VenueSerializer, PackageSerializer, EventSerializer, ExtraSerializer, RuleSerializer, CartSerializer, CartOrderItemSerializer, CartOrderSerializer, DatesOccupiedSerializer, CouponSerializer
+from .serializers import VenueSerializer, PackageSerializer, EventSerializer, EventCreateSerializer, ExtraSerializer, RuleSerializer, CartSerializer, CartOrderItemSerializer, CartOrderSerializer, DatesOccupiedSerializer, CouponSerializer
 from rest_framework import generics
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication, BasicAuthentication
@@ -62,7 +62,12 @@ class ExtraListAPIView(generics.ListAPIView):
     
 
 class EventCreateApiView(generics.CreateAPIView):
-        
+
+    serializer_class = EventCreateSerializer
+    authentication_classes = []
+    permission_classes = []
+    
+    
     def create(self, request, *args, **kwargs):
         payload = request.data
 
