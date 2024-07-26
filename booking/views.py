@@ -65,11 +65,9 @@ class EventListAPIView(generics.ListCreateAPIView):
     
     queryset = Event.objects.all()
     serializer_class = EventSerializer
-    # authentication_classes = [JWTAuthentication]
-    # permission_classes = [IsAuthenticated]
     authentication_classes = (JWTAuthentication,)
     permission_classes = [AllowAny]
-
+    lookup_field = 'eid'
     
     def create(self, request, *args, **kwargs):
         payload = request.data
