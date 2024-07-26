@@ -61,17 +61,8 @@ class ExtraListAPIView(generics.ListAPIView):
     permission_classes = []
     
 
-class EventListAPIView(generics.ListCreateAPIView):
-    
-    queryset = Event.objects.all()
-    serializer_class = EventSerializer
-    authentication_classes = (JWTAuthentication,)
-    permission_classes = [AllowAny]
-
-    # def get_object(self):
-    #     eid  = self.kwargs['eid']
-    #     return super().
-    
+class EventCreateApiView(generics.CreateAPIView):
+        
     def create(self, request, *args, **kwargs):
         payload = request.data
 
@@ -115,6 +106,14 @@ class EventListAPIView(generics.ListCreateAPIView):
 
         return Response({"message": "Event added successfully", "event_id":event.eid}, status=status.HTTP_200_OK)
 
+
+
+class EventListAPIView(generics.ListAPIView):
+    
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = [AllowAny]
 
 
 

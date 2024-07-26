@@ -58,6 +58,13 @@ class EventSerializer(serializers.ModelSerializer):
             self.Meta.depth = 1
 
 
+class EventCreateSerializer(serializers.ModelSerializer):
+    people = serializers.IntegerField()
+    class Meta:
+        model = Event
+        fields = '__all__'
+
+
 class MyEventsSerializer(serializers.ModelSerializer):
     
     class Meta:
