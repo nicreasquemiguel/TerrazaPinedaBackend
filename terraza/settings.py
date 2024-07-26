@@ -142,7 +142,7 @@ DATABASES = {
         'NAME': 'terraza',
         'USER': 'mixel',
         'PASSWORD' : '3NsZ1ufzxQnu4uvkMmhZ',
-        'HOST' : 'database-1.czm88mqccmno.us-east-1.rds.amazonaws.com', #localcost
+        'HOST' : 'database-2.czm88mqccmno.us-east-1.rds.amazonaws.com', #localcost
         'PORT': '5432',
     }
 }
