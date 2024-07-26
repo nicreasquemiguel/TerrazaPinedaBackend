@@ -41,6 +41,10 @@ class EventSerializer(serializers.ModelSerializer):
         model = Event
         fields = '__all__'
         # depth = 1
+        lookup_field = 'eid'
+        extra_kwargs = {
+            'url': {'lookup_field': 'eid'}
+        }
 
     def __init__(self, *args, **kwargs):
         super(EventSerializer, self).__init__(*args, **kwargs)
