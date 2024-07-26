@@ -62,7 +62,7 @@ class EventCreateSerializer(serializers.ModelSerializer):
     people = serializers.IntegerField()
     class Meta:
         model = Event
-        fields = '__all__'
+        fields = ['date','venue','client','admin']
 
 
 class MyEventsSerializer(serializers.ModelSerializer):
