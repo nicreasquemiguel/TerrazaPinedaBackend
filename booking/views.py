@@ -76,7 +76,7 @@ class EventListAPIView(generics.ListCreateAPIView):
         payload = request.data
 
         # event_id = payload['e']
-        user_id  = payload['user_id'] 
+        user_id  = payload['client'] 
         #Add default
         admin_id = 1
         venue_id = 1
