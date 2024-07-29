@@ -71,7 +71,7 @@ class EventCreateApiView(generics.CreateAPIView):
     def create(self, request, *args, **kwargs):
         payload = request.data
 
-
+        print(payload)
         user_id  = payload['client'] 
         
         #Add default
