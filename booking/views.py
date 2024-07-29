@@ -72,7 +72,7 @@ class EventCreateApiView(generics.CreateAPIView):
         payload = request.data
 
         print(payload)
-        user_id  = payload['client'] 
+        user_id  = payload['user_id'] 
         
         #Add default
         admin_id = 1
@@ -139,6 +139,7 @@ class EventDetailAPIView(generics.RetrieveAPIView):
     serializer_class = EventSerializer
     authentication_classes = []
     permission_classes = []
+    lookup_field = 'eid'
 
 
 class CartAddAPIView(generics.ListCreateAPIView):
@@ -317,7 +318,7 @@ class CreateOrderAPIView(generics.CreateAPIView):
 
         user_id = payload['client']
 
-        # user = UserAccount.objects.get(id=user_id)
+  
 
         print("user_id ===============", user_id)
         print(payload)
