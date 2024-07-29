@@ -210,7 +210,7 @@ class StripeCheckoutAPI(generics.CreateAPIView):
         # state = payload['state']
         # country = payload['country']
 
-        user_id = payload['user_id']
+        user_id = payload['client']
 
         # user = UserAccount.objects.get(id=user_id)
 
