@@ -71,8 +71,9 @@ class EventCreateApiView(generics.CreateAPIView):
     def create(self, request, *args, **kwargs):
         payload = request.data
 
-        # event_id = payload['e']
+
         user_id  = payload['client'] 
+        
         #Add default
         admin_id = 1
         venue_id = 1
@@ -314,7 +315,7 @@ class CreateOrderAPIView(generics.CreateAPIView):
         # state = payload['state']
         # country = payload['country']
 
-        user_id = payload['user_id']
+        user_id = payload['client']
 
         # user = UserAccount.objects.get(id=user_id)
 
