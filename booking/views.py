@@ -110,7 +110,7 @@ class EventCreateApiView(generics.CreateAPIView):
         event.extras.add(*extrasList)
         event.save()
 
-        return Response({"message": "Event added successfully", "event_id":event.eid}, status=status.HTTP_200_OK)
+        return Response({"message": "Event added successfully", "event_id":event.id}, status=status.HTTP_200_OK)
 
 
 
@@ -139,7 +139,6 @@ class EventDetailAPIView(generics.RetrieveAPIView):
     serializer_class = EventSerializer
     authentication_classes = []
     permission_classes = []
-    lookup_field = 'eid'
 
 
 class CartAddAPIView(generics.ListCreateAPIView):
@@ -156,7 +155,7 @@ class CartAddAPIView(generics.ListCreateAPIView):
         extras  = payload['extras']
         
 
-        event = Event.objects.get(eid=event_id)
+        event = Event.objects.get(id=event_id)
         user  = UserAccount.objects.get(id=user_id)
         if user_id != 'undefined':
             user  = UserAccount.objects.get(id=user_id)
@@ -218,7 +217,7 @@ class StripeCheckoutAPI(generics.CreateAPIView):
         print("user_id ===============", user_id)
         print(payload)
         
-        event = Event.objects.get(eid=event_id)
+        event = Event.objects.get(id=event_id)
         user = UserAccount.objects.get(id=user_id)
 
 
@@ -323,7 +322,7 @@ class CreateOrderAPIView(generics.CreateAPIView):
         print("user_id ===============", user_id)
         print(payload)
         
-        event = Event.objects.get(eid=event_id)
+        event = Event.objects.get(id=event_id)
         user = UserAccount.objects.get(id=user_id)
 
         

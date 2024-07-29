@@ -109,7 +109,7 @@ class Event(models.Model):
 
     def save(self, *args, **kwargs):
         if self.slug == "" or self.slug == None:
-            self.slug = slugify(self.eid + '-' + self.date) 
+            self.slug = slugify(self.id + '-' + self.date) 
         
         if self.status == 'en_carrito':
             pass
