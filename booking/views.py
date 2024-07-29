@@ -292,7 +292,8 @@ class StripeCheckoutAPI(generics.CreateAPIView):
             print(order.stripe_session_id)
             print( checkout_session['id'])
             print( checkout_session.url)
-            return redirect(checkout_session['url'])
+            # return redirect(checkout_session['url'])
+            return Response(data={'url': checkout_session.url}, status=200)
         except stripe.error.StripeError as e:
             return Response( {'error': f'Something went wrong when creating stripe checkout session: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
