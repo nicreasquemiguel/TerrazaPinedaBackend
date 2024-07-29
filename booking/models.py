@@ -76,10 +76,7 @@ class Event(models.Model):
         ("rechazado", "Rechazado"),
         ("finalizado", "Finalizado"),
     )
-    # id = models.AutoField( primary_key=True )
-
-    # pid 
-    #  ShortUUIDField(unique=True, length=20, alphabet='abcdefg12345', default=uuid.uuid4, db_column = "pid")
+ 
     date = models.DateField()
     # id = models.AutoField( primary_key=True )
     arrival = models.TimeField(default = ta)
@@ -95,7 +92,7 @@ class Event(models.Model):
     status = models.CharField(max_length=100, choices=STATUS, default="en_carrito")
     rating = models.PositiveIntegerField(default =0,  blank=True)
     rating_comment = models.CharField(max_length = 255, null = True,  blank=True)
-    slug = models.SlugField(unique = True, default="")
+    # slug = models.SlugField(unique = True, default="")
     payment_intent = models.CharField(max_length=1000, null=True, blank=True)
     # eid = ShortUUIDField(default=uuid.uuid4, unique=True, length=10, alphabet='abcdefg12345')
 
