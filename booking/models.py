@@ -78,7 +78,7 @@ class Event(models.Model):
     )
  
     date = models.DateField()
-    # id = models.AutoField( primary_key=True )
+    id = models.AutoField( primary_key=True )
     arrival = models.TimeField(default = ta)
     departure = models.TimeField(default = td)
     package = models.ForeignKey(Package, on_delete= models.PROTECT, related_name= "package")
