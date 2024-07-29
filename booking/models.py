@@ -92,7 +92,7 @@ class Event(models.Model):
     status = models.CharField(max_length=100, choices=STATUS, default="en_carrito")
     rating = models.PositiveIntegerField(default =0,  blank=True)
     rating_comment = models.CharField(max_length = 255, null = True,  blank=True)
-    # slug = models.SlugField(unique = True, default="")
+    slug = models.SlugField(unique = True, default="")
     payment_intent = models.CharField(max_length=1000, null=True, blank=True)
     # eid = ShortUUIDField(default=uuid.uuid4, unique=True, length=10, alphabet='abcdefg12345')
 
