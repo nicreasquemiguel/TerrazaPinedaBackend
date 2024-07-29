@@ -82,7 +82,7 @@ class Event(models.Model):
     arrival = models.TimeField(default = ta)
     departure = models.TimeField(default = td)
     package = models.ForeignKey(Package, on_delete= models.PROTECT, related_name= "package")
-    extras =  models.ManyToManyField(Extra, null=True,  blank=True)
+    extras =  models.ManyToManyField(Extra,  blank=True)
     client = models.ForeignKey(UserAccount, on_delete= models.PROTECT, related_name= "client")
     admin = models.ForeignKey(UserAccount, on_delete= models.PROTECT, related_name= "admin")
     venue = models.ForeignKey(Venue, on_delete = models.PROTECT, related_name = "venue")
