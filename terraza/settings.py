@@ -139,7 +139,7 @@ WSGI_APPLICATION = 'terraza.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'terraza',
+        'NAME': 'terraza-django',
         'USER': 'mixel',
         'PASSWORD' : '3NsZ1ufzxQnu4uvkMmhZ',
         'HOST' : 'database-1.czm88mqccmno.us-east-1.rds.amazonaws.com', #localcost
