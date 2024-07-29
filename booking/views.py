@@ -72,7 +72,7 @@ class EventCreateApiView(generics.CreateAPIView):
         payload = request.data
 
         print(payload)
-        user_id  = payload['user_id'] 
+        user_id  = payload['client'] 
         
         #Add default
         admin_id = 1
@@ -150,9 +150,9 @@ class CartAddAPIView(generics.ListCreateAPIView):
     def create(self, request, *args, **kwargs):
         payload = request.data
         event_id  =  payload['event_id']
-        country = payload['user_id']    
+        country = payload['client']    
         cart_id = payload['cart_id']
-        user_id = payload['user_id']
+        user_id = payload['client']
         extras  = payload['extras']
         
 
