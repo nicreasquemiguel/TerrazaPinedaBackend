@@ -397,8 +397,8 @@ class PaymentSuccessView(generics.RetrieveUpdateAPIView):
         session_id = payload['session_id']
         
         print(payload)
-        order = CartOrder.objects.filter(oid=order_oid)
-        event = Event.objects.filter(id=order.event)
+        order = CartOrder.objects.get(oid=order_oid)
+        event = Event.objects.get(id=order.event)
 
         if session_id != 'null':
             session = stripe.checkout.Session.retrieve(session_id)
