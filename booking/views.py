@@ -374,3 +374,27 @@ class CreateOrderAPIView(generics.CreateAPIView):
 
         return Response( {"message": "Order Created Successfully", 'order_oid':order.oid}, status=status.HTTP_201_CREATED)
 
+
+class PaymentSuccessView(generics.CreateAPIView):
+    serializer_class = CartOrderSerializer
+    permission_classes = [AllowAny]
+    queryset = CartOrder.objects.all()
+
+    def create(self, request, *args, **kwargs):
+        payload = request.data
+
+        order_oid = payload['order_oid']
+        session_id = payload['session_id']
+        
+
+        order = CartOrder.objects.filter(oid=order_oid)
+        event = Event.objects.filter(id=order.event)
+
+        if session_id != 'null':
+            session = stripe.checkout.Session.retrieve(session_id)
+
+            if session.payment_status == 'paid':
+                order.payment_status = 'paid'
+                order.save()
+
+                return Response( {"message": "Pago aceptado!", 'order_oid':order.oid}, status=status.HTTP_201_CREATED)
