@@ -392,7 +392,7 @@ class PaymentSuccessView(generics.RetrieveAPIView):
  
     def retrieve(self, request, *args, **kwargs):
         payload = request.data
-
+        print(payload)
         order_oid = payload['order_oid']
         session_id = payload['session_id']
         
