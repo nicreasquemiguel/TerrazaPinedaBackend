@@ -281,9 +281,9 @@ class StripeCheckoutAPI(generics.CreateAPIView):
                 # success_url = f"{settings.SITE_URL}/payment-success/{{order.oid}}/?session_id={{CHECKOUT_SESSION_ID}}",
                 # cancel_url = f"{settings.SITE_URL}/payment-success/{{order.oid}}/?session_id={{CHECKOUT_SESSION_ID}}",
 
-                success_url=settings.SITE_URL+'api/pago-exitoso/'+ order.oid +'/?session_id={CHECKOUT_SESSION_ID}',
+                success_url=settings.SITE_URL_FRONTEND+'pago-exitoso/'+ order.oid +'/?session_id={CHECKOUT_SESSION_ID}',
                 
-                cancel_url=settings.SITE_URL+'api/?session_id={CHECKOUT_SESSION_ID}',
+                cancel_url=settings.SITE_URL_FRONTEND+'?session_id={CHECKOUT_SESSION_ID}',
             )
 
             

@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 STRIPE_PUBLIC_KEY ="pk_test_51LUzLpAyaVFmKoiDa8pAoBrJbvWAi953aAOXWPwz7oSt4hSjuiohV65VDFvKcJ0A8P2ylR4GCZ4CV8jdHLlVjjq600HLTe60t4"
 STRIPE_SECRET_KEY="sk_test_51LUzLpAyaVFmKoiDJXVHDyRoG1WjaAzVK4dVlaFtbz4Obbi6ptU5LHRhMhs9zf01SJEvjeA7Bs6sLSFsDdvSXdJS00EADny2I1"
 SITE_URL="http://52.90.173.244:8000/"
-SITE_URL2="http://localhost:8000/"
+SITE_URL_FRONTEND="http://localhost:5173/"
 
 
 # Quick-start development settings - unsuitable for production
