@@ -282,6 +282,7 @@ class StripeCheckoutAPI(generics.CreateAPIView):
                 # cancel_url = f"{settings.SITE_URL}/payment-success/{{order.oid}}/?session_id={{CHECKOUT_SESSION_ID}}",
 
                 success_url=settings.SITE_URL+'api/payment-success/'+ order.oid +'/?session_id={CHECKOUT_SESSION_ID}',
+                
                 cancel_url=settings.SITE_URL+'api/?session_id={CHECKOUT_SESSION_ID}',
             )
 
@@ -375,12 +376,20 @@ class CreateOrderAPIView(generics.CreateAPIView):
         return Response( {"message": "Order Created Successfully", 'order_oid':order.oid}, status=status.HTTP_201_CREATED)
 
 
-class PaymentSuccessView(generics.CreateAPIView):
+class PaymentSuccessView(generics.RetrieveAPIView):
     serializer_class = CartOrderSerializer
     permission_classes = [AllowAny]
     queryset = CartOrder.objects.all()
+    lookup_field = 'order_id'
 
-    def create(self, request, *args, **kwargs):
+    def get(self, request, order_id):
+        queryset = self.get_queryset().filter(oid=order_id)
+        serializer = self.serializer_class(queryset, many=True)
+        data = serializer.data
+        return Response({'Message': 'Users active loaded successfully', 'data': data}, status=status.HTTP_201_CREATED)
+
+ 
+    def retrieve(self, request, *args, **kwargs):
         payload = request.data
 
         order_oid = payload['order_oid']
