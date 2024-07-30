@@ -281,8 +281,8 @@ class StripeCheckoutAPI(generics.CreateAPIView):
                 # success_url = f"{settings.SITE_URL}/payment-success/{{order.oid}}/?session_id={{CHECKOUT_SESSION_ID}}",
                 # cancel_url = f"{settings.SITE_URL}/payment-success/{{order.oid}}/?session_id={{CHECKOUT_SESSION_ID}}",
 
-                success_url=settings.SITE_URL+'payment-success/'+ order.oid +'?session_id={CHECKOUT_SESSION_ID}',
-                cancel_url=settings.SITE_URL+'?session_id={CHECKOUT_SESSION_ID}',
+                success_url=settings.SITE_URL+'api/payment-success/'+ order.oid +'?session_id={CHECKOUT_SESSION_ID}',
+                cancel_url=settings.SITE_URL+'api/?session_id={CHECKOUT_SESSION_ID}',
             )
 
             
@@ -386,7 +386,7 @@ class PaymentSuccessView(generics.CreateAPIView):
         order_oid = payload['order_oid']
         session_id = payload['session_id']
         
-
+        print(payload)
         order = CartOrder.objects.filter(oid=order_oid)
         event = Event.objects.filter(id=order.event)
 
