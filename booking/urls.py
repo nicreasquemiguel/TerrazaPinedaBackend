@@ -27,6 +27,6 @@ urlpatterns = [
     path('checkout/<int:pk>', CheckoutAPIView.as_view()),
     path('coupons/<code>', CouponAPIView.as_view()),
     path('stripe-checkout/', StripeCheckoutAPI.as_view(), name='stripe-checkout'),
-    path('payment-success/<uuid:order_id>', PaymentSuccessView.as_view(), name='payment-success'),
+    path('pago-exitoso/<uuid:order_id>', PaymentSuccessView.as_view(), name='payment-success'),
 
 ]
