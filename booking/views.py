@@ -390,7 +390,7 @@ class PaymentSuccessView(generics.RetrieveUpdateAPIView):
     #     return Response({'Message': 'Users active loaded successfully', 'data': data}, status=status.HTTP_201_CREATED)
 
  
-    def update(self, request, *args, **kwargs):
+    def update(self, order_oid, request, *args, **kwargs):
         payload = request.data
         print(payload)
         order_oid = payload['order_oid']
