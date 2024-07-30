@@ -376,7 +376,7 @@ class CreateOrderAPIView(generics.CreateAPIView):
         return Response( {"message": "Order Created Successfully", 'order_oid':order.oid}, status=status.HTTP_201_CREATED)
 
 
-class PaymentSuccessView(generics.RetrieveAPIView):
+class PaymentSuccessView(generics.RetrieveUpdateAPIView):
     serializer_class = CartOrderSerializer
     permission_classes = [AllowAny]
     authentication_classes = []
@@ -390,7 +390,7 @@ class PaymentSuccessView(generics.RetrieveAPIView):
     #     return Response({'Message': 'Users active loaded successfully', 'data': data}, status=status.HTTP_201_CREATED)
 
  
-    def retrieve(self, request, *args, **kwargs):
+    def update(self, request, *args, **kwargs):
         payload = request.data
         print(payload)
         order_oid = payload['order_oid']
