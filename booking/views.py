@@ -382,11 +382,11 @@ class PaymentSuccessView(generics.RetrieveAPIView):
     queryset = CartOrder.objects.all()
     lookup_field = 'order_id'
 
-    def get(self, request, order_id):
-        queryset = self.get_queryset().filter(oid=order_id)
-        serializer = self.serializer_class(queryset, many=True)
-        data = serializer.data
-        return Response({'Message': 'Users active loaded successfully', 'data': data}, status=status.HTTP_201_CREATED)
+    # def get(self, request, order_id):
+    #     queryset = self.get_queryset().filter(oid=order_id)
+    #     serializer = self.serializer_class(queryset, many=True)
+    #     data = serializer.data
+    #     return Response({'Message': 'Users active loaded successfully', 'data': data}, status=status.HTTP_201_CREATED)
 
  
     def retrieve(self, request, *args, **kwargs):
