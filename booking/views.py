@@ -407,4 +407,4 @@ class PaymentSuccessView(generics.RetrieveUpdateAPIView):
                 order.payment_status = 'paid'
                 order.save()
 
-                return Response( {"message": "Pago aceptado!", 'order_oid':order}, status=status.HTTP_201_CREATED)
+                return Response( {"message": "Pago aceptado!", 'order_oid':json.dumps(order)}, status=status.HTTP_201_CREATED)
