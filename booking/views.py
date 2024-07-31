@@ -379,11 +379,11 @@ class CreateOrderAPIView(generics.CreateAPIView):
 
 class PaymentSuccessView(generics.RetrieveUpdateAPIView):
     serializer_class = CartOrderSerializer
-    permission_classes = [AllowAny]
-    authentication_classes = []
     queryset = CartOrder.objects.all()
     lookup_field = 'order_id'
 
+    permission_classes = [AllowAny]
+    authentication_classes = []
  
     # def update(self, request, *args, **kwargs):
     #     payload = request.data
