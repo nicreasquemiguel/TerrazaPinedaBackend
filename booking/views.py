@@ -272,8 +272,8 @@ class StripeCheckoutAPI(generics.CreateAPIView):
                             'currency': 'mxn',
                             'product_data': {
                                 'name': order.full_name,
-                                'order':  order.oid,
-                                'fecha renta': event.date,
+                                'description':  order.oid + ' para la fecha: ' + event.date,
+                                
                             },
                             'unit_amount': int(order.event.package.price * 100),
                         },
