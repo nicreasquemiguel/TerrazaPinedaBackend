@@ -272,6 +272,8 @@ class StripeCheckoutAPI(generics.CreateAPIView):
                             'currency': 'mxn',
                             'product_data': {
                                 'name': order.full_name,
+                                'order':  order.eid,
+                                'fecha renta': event.date,
                             },
                             'unit_amount': int(order.event.package.price * 100),
                         },
@@ -376,6 +378,15 @@ class CreateOrderAPIView(generics.CreateAPIView):
 
         return Response( {"message": "Order Created Successfully", 'order_oid':order.oid}, status=status.HTTP_201_CREATED)
 
+
+class CartOrderDetailView(generics.RetrieveAPIView):
+    serializer_class = CartOrderSerializer
+    queryset = CartOrder.objects.all()
+    lookup_field = 'oid'
+
+    permission_classes = [AllowAny]
+    authentication_classes = []
+ 
 
 class PaymentSuccessView(generics.RetrieveUpdateAPIView):
     serializer_class = CartOrderSerializer
