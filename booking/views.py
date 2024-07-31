@@ -380,7 +380,7 @@ class CreateOrderAPIView(generics.CreateAPIView):
 class PaymentSuccessView(generics.RetrieveUpdateAPIView):
     serializer_class = CartOrderSerializer
     queryset = CartOrder.objects.all()
-    lookup_field = 'order_id'
+    lookup_field = 'oid'
 
     permission_classes = [AllowAny]
     authentication_classes = []
