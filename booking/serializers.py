@@ -131,6 +131,13 @@ class CartOrderSerializer(serializers.ModelSerializer):
         model = CartOrder
         fields = '__all__'
 
+    def update(self, instance, validated_data):
+        payment_status = validated_data.pop('payment_status')
+        ps_obj = CartOrder.objects.filter(payment_status=payment_status).first()
+        if ps_obj:
+            instance.payment_status = ps_obj
+        return super().update(instance, validated_data)
+
     def __init__(self, *args, **kwargs):
         super(CartOrderSerializer, self).__init__(*args, **kwargs)
         # Customize serialization depth based on the request method.

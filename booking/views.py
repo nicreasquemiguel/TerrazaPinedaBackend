@@ -384,19 +384,22 @@ class PaymentSuccessView(generics.RetrieveUpdateAPIView):
     queryset = CartOrder.objects.all()
     lookup_field = 'order_id'
 
-    # def get(self, request, order_id):
-    #     queryset = self.get_queryset().filter(oid=order_id)
-    #     serializer = self.serializer_class(queryset, many=True)
-    #     data = serializer.data
-    #     return Response({'Message': 'Users active loaded successfully', 'data': data}, status=status.HTTP_201_CREATED)
-
  
     def update(self, request, *args, **kwargs):
         payload = request.data
         print(payload)
         order_oid = payload['order_oid']
         session_id = payload['session_id']
-        
+
+
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
+    
+
         print(payload)
         order = CartOrder.objects.get(oid=order_oid)
         event = Event.objects.get(id=order.event.id)
@@ -408,4 +411,4 @@ class PaymentSuccessView(generics.RetrieveUpdateAPIView):
                 order.payment_status = 'paid'
                 order.save()
 
-                return Response( {"message": "Pago aceptado!", 'order_oid': json.dumps(model_to_dict(order))}, status=status.HTTP_201_CREATED)
+                return Response( {"message": "Pago aceptado!", 'order_oid': order)}, status=status.HTTP_201_CREATED)
