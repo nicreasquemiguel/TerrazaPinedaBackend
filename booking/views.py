@@ -272,7 +272,7 @@ class StripeCheckoutAPI(generics.CreateAPIView):
                             'currency': 'mxn',
                             'product_data': {
                                 'name': order.full_name,
-                                'description':  order.oid + ' para la fecha: ' + event.date,
+                                'description':  order.oid + ' para la fecha: ' + str(event.date),
                                 
                             },
                             'unit_amount': int(order.event.package.price * 100),
