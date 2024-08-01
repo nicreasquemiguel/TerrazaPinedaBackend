@@ -289,7 +289,12 @@ class StripeCheckoutAPI(generics.CreateAPIView):
                 cancel_url=settings.SITE_URL_FRONTEND+'?session_id={CHECKOUT_SESSION_ID}',
             )
 
+            get_checkout_session = stripe.checkout.Session.retrieve(
+                checkout_session['id'],
+            )
+
             print(checkout_session)
+            print(get_checkout_session)
             
             order.stripe_session_id = checkout_session['id']
             order.save()
