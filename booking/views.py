@@ -384,7 +384,7 @@ class CartOrderDetailView(generics.RetrieveAPIView):
             )
             if checkout_session.payment_status == 'paid':
 
-                event = Event.objects.get(id=instance.event)
+                event = Event.objects.get(id=instance.event.id)
                 event.status = "en_revision"
                 event.save()
             print(checkout_session)
