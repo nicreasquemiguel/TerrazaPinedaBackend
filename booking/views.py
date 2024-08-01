@@ -392,6 +392,18 @@ class CartOrderDetailView(generics.RetrieveAPIView):
 
     permission_classes = [AllowAny]
     authentication_classes = []
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        if instance:    # check if instace is there 
+       
+            checkout_session = stripe.checkout.Session.retrieve(
+                instance.id,
+            )
+            print(checkout_session)
+        return Response(serializer.data)
+
  
 
 class PaymentSuccessView(generics.RetrieveUpdateAPIView):

@@ -29,5 +29,6 @@ urlpatterns = [
     path('coupons/<code>', CouponAPIView.as_view()),
     path('stripe-checkout/', StripeCheckoutAPI.as_view(), name='stripe-checkout'),
     path('pago-exitoso/<oid>/', PaymentSuccessView.as_view(), name='payment-success'),
+    # path('pagos/<oid>/', PaymentDetail.as_view()),
 
 ]
