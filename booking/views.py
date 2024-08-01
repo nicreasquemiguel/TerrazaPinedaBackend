@@ -399,7 +399,7 @@ class CartOrderDetailView(generics.RetrieveAPIView):
         if instance:    # check if instace is there 
        
             checkout_session = stripe.checkout.Session.retrieve(
-                instance.id,
+                instance.oid,
             )
             print(checkout_session)
         return Response(serializer.data)
