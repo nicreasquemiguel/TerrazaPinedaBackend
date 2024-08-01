@@ -382,10 +382,11 @@ class CartOrderDetailView(generics.RetrieveAPIView):
             checkout_session = stripe.checkout.Session.retrieve(
                 instance.stripe_session_id,
             )
+            if checkout_session.payment_status == 'paid':
 
-            event = Event.objects.get(id=instance.event)
-            event.status = "en_revision"
-            event.save()
+                event = Event.objects.get(id=instance.event)
+                event.status = "en_revision"
+                event.save()
             print(checkout_session)
         return Response({"order":serializer.data, "stripe_session": checkout_session} )
 
