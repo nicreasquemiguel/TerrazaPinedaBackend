@@ -186,20 +186,11 @@ class CouponAPIView(generics.RetrieveAPIView):
 class StripeCheckoutAPI(generics.CreateAPIView):
     serializer_class = CartOrderSerializer
     queryset = CartOrder.objects.all()
-    # lookup_field = 'oid'
     authentication_classes = []
     permission_classes = []
-    # print('somafd')
-    # def get_object(self):
-    #     order_id = self.kwargs['order_oid']
-    #     order = get_object_or_404(CartOrder, oid=order_id)
-    #     return order
     
     def create(self, request, *args, **kwargs):
-
-
         payload = request.data
-
         print(payload)
 
         full_name = payload['full_name']
@@ -281,27 +272,17 @@ class StripeCheckoutAPI(generics.CreateAPIView):
                     }
                 ],
                 mode='payment',
-                # success_url = f"{settings.SITE_URL}/payment-success/{{order.oid}}/?session_id={{CHECKOUT_SESSION_ID}}",
-                # cancel_url = f"{settings.SITE_URL}/payment-success/{{order.oid}}/?session_id={{CHECKOUT_SESSION_ID}}",
-
                 success_url=settings.SITE_URL_FRONTEND+'pago-exitoso/'+ order.oid +'/?session_id={CHECKOUT_SESSION_ID}',
-                
                 cancel_url=settings.SITE_URL_FRONTEND+'?session_id={CHECKOUT_SESSION_ID}',
             )
 
-            get_checkout_session = stripe.checkout.Session.retrieve(
-                checkout_session['id'],
-            )
-
-            print(checkout_session)
-            print(get_checkout_session)
             
             order.stripe_session_id = checkout_session['id']
             order.save()
 
-            print(order.stripe_session_id)
-            print( checkout_session['id'])
-            print( checkout_session.url)
+            # print(order.stripe_session_id)
+            # print( checkout_session['id'])
+            # print( checkout_session.url)
             # return redirect(checkout_session['url'])
             return Response({'url': checkout_session['url']}, status=200)
         except stripe.error.StripeError as e:
@@ -401,6 +382,10 @@ class CartOrderDetailView(generics.RetrieveAPIView):
             checkout_session = stripe.checkout.Session.retrieve(
                 instance.stripe_session_id,
             )
+
+            event = Event.objects.get(id=instance.event)
+            event.status = "en_revision"
+            event.save()
             print(checkout_session)
         return Response({"order":serializer.data, "stripe_session": checkout_session} )
 
