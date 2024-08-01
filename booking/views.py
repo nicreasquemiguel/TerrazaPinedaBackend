@@ -402,7 +402,7 @@ class CartOrderDetailView(generics.RetrieveAPIView):
                 instance.stripe_session_id,
             )
             print(checkout_session)
-        return Response(serializer.data)
+        return Response(serializer.data, checkout_session)
 
  
 
