@@ -385,8 +385,10 @@ class CartOrderDetailView(generics.RetrieveAPIView):
             if checkout_session.payment_status == 'paid':
 
                 event = Event.objects.get(id=instance.event.id)
-                event.status = "en_revision"
-                event.save()
+                if event.status == "en_carrito":
+                    
+                    event.status = "en_revision"
+                    event.save()
             print(checkout_session)
         return Response({"order":serializer.data, "stripe_session": checkout_session} )
 
@@ -427,3 +429,15 @@ class PaymentSuccessView(generics.RetrieveUpdateAPIView):
     #             order.save()
 
     #             return Response( {"message": "Pago aceptado!", 'order_oid': order)}, status=status.HTTP_201_CREATED)
+
+
+class MyEventsAPIView(generics.ListAPIView):
+    serializer_class = EventSerializer
+    queryset = Event.objects.all().filter()
+
+
+    def list(self, request):
+        print(request)
+        queryset = self.get_queryset().filter(client=request.user.id)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

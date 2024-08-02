@@ -20,6 +20,8 @@ urlpatterns = [
     path('sitios-activos', VenueActiveListAPIView.as_view()),
     path('sitios/<slug>/', VenueDetailAPIView.as_view()),
 
+    path('mis-eventos/,', MyEventsAPIView.as_view()),
+
     #Store endpoints
     path('cart-view/', CartAddAPIView.as_view()),
     path('create-order/', CreateOrderAPIView.as_view()),
