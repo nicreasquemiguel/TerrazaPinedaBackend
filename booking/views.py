@@ -433,7 +433,7 @@ class PaymentSuccessView(generics.RetrieveUpdateAPIView):
 
 class MyEventsAPIView(generics.ListAPIView):
     serializer_class = EventSerializer
-    queryset = Event.objects.all().filter()
+    queryset = Event.objects.all()
 
     permission_classes = [AllowAny]
     authentication_classes = []
