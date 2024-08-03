@@ -439,7 +439,7 @@ class MyEventsAPIView(generics.ListAPIView):
     authentication_classes = []
 
     def list(self, request):
-        print(request)
-        queryset = self.get_queryset().filter(client=request.user.id)
+        print(request.data)
+        queryset = self.get_queryset().filter(client=request.data.user.id)
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
