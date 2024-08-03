@@ -438,8 +438,13 @@ class MyEventsAPIView(generics.ListAPIView):
     permission_classes = [AllowAny]
     authentication_classes = []
 
-    def list(self, request):
-        print(request.data)
-        queryset = self.get_queryset().filter(client=request.data.user.id)
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    # def list(self, request):
+    #     print(self.request.data)
+    #     queryset = self.get_queryset().filter(client=request.data.user.id)
+    #     serializer = self.get_serializer(queryset, many=True)
+    #     return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
+    def get_queryset(self, request, *args, **kwargs):
+        return Event.objects.all().filter(client = self.request.user)
+        return super().get_queryset()
