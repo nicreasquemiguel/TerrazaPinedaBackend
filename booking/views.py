@@ -447,7 +447,6 @@ class MyEventsAPIView(generics.ListAPIView):
 
     def get_queryset(self):
         print(self.request)
-        print(self.request.data)
-        for data in self.request:
-            print(data)
+        print(self.request.__dict__)
+
         return Event.objects.all().filter(client = self.request.user.id)
