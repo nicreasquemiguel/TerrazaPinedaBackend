@@ -435,9 +435,9 @@ class MyEventsAPIView(generics.ListAPIView):
     serializer_class = EventSerializer
     queryset = Event.objects.all()
 
-    permission_classes = (IsAuthenticated,)
-    authentication_classes = (JWTAuthentication)
-
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = [AllowAny]
+    
     # def list(self, request):
     #     print(self.request.data)
     #     queryset = self.get_queryset().filter(client=request.data.user.id)
