@@ -94,7 +94,7 @@ class Event(models.Model):
     rating_comment = models.CharField(max_length = 255, null = True,  blank=True)
     slug = models.SlugField(unique = True, default="")
     payment_intent = models.CharField(max_length=1000, null=True, blank=True)
-    eid = ShortUUIDField(default=uuid.uuid4, length=10, alphabet='abcdefg12345')
+    # eid = ShortUUIDField(default=uuid.uuid4, length=10, alphabet='abcdefg12345')
 
     def total_price(self):
         return self.package.price
