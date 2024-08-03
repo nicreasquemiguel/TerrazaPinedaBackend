@@ -445,6 +445,6 @@ class MyEventsAPIView(generics.ListAPIView):
     #     return Response(serializer.data, status=status.HTTP_200_OK)
     
 
-    def get_queryset(self, request, *args, **kwargs):
-        return Event.objects.all().filter(client = request.user)
+    def get_queryset(self):
+        return Event.objects.all().filter(client = self.request.user)
         return super().get_queryset()
