@@ -448,7 +448,7 @@ class MyEventsAPIView(generics.ListAPIView):
     def get_queryset(self):
         print(self.request)
         print(self.request.__dict__)
-        print(json.dumps(self.request))
+        # print(json.dumps(self.request))
         print(self.request._user)
         print(self.request.user)
         print(self.request.GET)
