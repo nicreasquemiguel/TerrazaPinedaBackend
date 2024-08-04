@@ -52,8 +52,8 @@ class RuleListAPIView(generics.ListAPIView):
 class PackageViewSet(ModelViewSet):
     queryset = Package.objects.all()
     serializer_class = PackageSerializer
-    authentication_classes = []
-    permission_classes = []
+    # authentication_classes = []
+    # permission_classes = []
 
 class ExtraListAPIView(generics.ListAPIView):
     queryset = Extra.objects.all()
@@ -435,8 +435,8 @@ class MyEventsAPIView(generics.ListAPIView):
     serializer_class = EventSerializer
     queryset = Event.objects.all()
 
-    authentication_classes = (JWTAuthentication,)
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = (JWTAuthentication,)
+    # permission_classes = [IsAuthenticated]
     
     # def list(self, request):
     #     print(self.request.data)
