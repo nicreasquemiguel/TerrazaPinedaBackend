@@ -53,7 +53,7 @@ class PackageViewSet(ModelViewSet):
     queryset = Package.objects.all()
     serializer_class = PackageSerializer
     # authentication_classes = [JWTAuthentication]
-    # # permission_classes = []
+    permission_classes = (AllowAny,)
 
 class ExtraListAPIView(generics.ListAPIView):
     queryset = Extra.objects.all()
