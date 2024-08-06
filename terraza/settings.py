@@ -56,8 +56,8 @@ CORS_ALLOW_HEADERS = "*"
 CORS_ALLOW_CREDENTIALS = False
 CORS_ORIGIN_WHITELIST = (
 
-    'localhost:8000',
-    'localhost:5173',
+    'http://localhost:8000',
+    'http://localhost:5173',
     'http://192.168.100.15:5173',
     'http://52.90.173.244:8000',
 )
