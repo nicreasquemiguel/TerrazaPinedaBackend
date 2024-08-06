@@ -402,55 +402,11 @@ class PaymentSuccessView(generics.RetrieveUpdateAPIView):
     permission_classes = [AllowAny]
     authentication_classes = []
  
-    # def update(self, request, *args, **kwargs):
-    #     payload = request.data
-    #     print(payload)
-    #     order_oid = payload['order_oid']
-    #     session_id = payload['session_id']
-
-
-    #     partial = kwargs.pop('partial', False)
-    #     instance = self.get_object()
-    #     serializer = self.get_serializer(instance, data=request.data, partial=partial)
-    #     serializer.is_valid(raise_exception=True)
-    #     self.perform_update(serializer)
-    #     return Response(serializer.data)
-    
-
-    #     print(payload)
-    #     order = CartOrder.objects.get(oid=order_oid)
-    #     event = Event.objects.get(id=order.event.id)
-
-    #     if session_id != 'null':
-    #         session = stripe.checkout.Session.retrieve(session_id)
-
-    #         if session.payment_status == 'paid':
-    #             order.payment_status = 'paid'
-    #             order.save()
-
-    #             return Response( {"message": "Pago aceptado!", 'order_oid': order)}, status=status.HTTP_201_CREATED)
-
 
 class MyEventsAPIView(generics.ListAPIView):
     serializer_class = EventSerializer
     queryset = Event.objects.all()
 
-    # authentication_classes = (JWTAuthentication,)
-    # permission_classes = [IsAuthenticated]
-    
-    # def list(self, request):
-    #     print(self.request.data)
-    #     queryset = self.get_queryset().filter(client=request.data.user.id)
-    #     serializer = self.get_serializer(queryset, many=True)
-    #     return Response(serializer.data, status=status.HTTP_200_OK)
-    
 
     def get_queryset(self):
-        print(self.request)
-        print(self.request.__dict__)
-        # print(json.dumps(self.request))
-        print(self.request._user)
-        print(self.request.user)
-        print(self.request.GET)
-
         return Event.objects.all().filter(client = self.request.user.id)
