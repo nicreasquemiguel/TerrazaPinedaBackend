@@ -53,7 +53,14 @@ CORS_ORIGIN_ALLOW_ALL = True
 # CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_HEADERS = "*"
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = False
+CORS_ORIGIN_WHITELIST = (
+
+    'localhost:8000',
+    'localhost:5173',
+    'http://192.168.100.15:5173',
+    'http://52.90.173.244:8000',
+)
 # CSRF_TRUSTED_ORIGINS = [ "*" ]
 CSRF_TRUSTED_ORIGINS = [ "http://0.0.0.0", "http://localhost", "http://127.0.0.1","http://52.90.173.244" ]
 
