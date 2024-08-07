@@ -42,16 +42,14 @@ DEBUG = True
 ALLOWED_HOSTS=['*']
 
 
-CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOW_HEADERS = "*"
 CORS_ALLOW_CREDENTIALS = False
 CORS_ORIGIN_WHITELIST = (
 
-    'http://localhost:8000',
     'http://localhost:5173',
     'http://192.168.100.15:5173',
-    'http://52.90.173.244:8000',
+
 )
 # CSRF_TRUSTED_ORIGINS = [ "*" ]
 CSRF_TRUSTED_ORIGINS = [ "http://0.0.0.0", "http://localhost", "http://127.0.0.1","http://52.90.173.244" ]
@@ -63,7 +61,6 @@ CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SAMESITE = 'None'
-Good luck!
 
 INSTALLED_APPS = [
     #custom admin
@@ -215,6 +212,9 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 
 # STRIPE_PUBLIC_KEY = config("STRIPE_PUBLIC_KEY")
 # STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
+
+CORS_ORIGIN_ALLOW_ALL = True
+
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
