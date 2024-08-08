@@ -69,12 +69,23 @@ td = datetime.time(00,00,00)
 
 class Event(models.Model):
 
+    # STATUS = (
+    #     ("en_carrito", "En carrito"),
+    #     ("en_revision", "En revisión"),
+    #     ("aceptado","Aceptado"),
+    #     ("rechazado", "Rechazado"),
+    #     ("finalizado", "Finalizado"),
+    # )
+
     STATUS = (
-        ("en_carrito", "En carrito"),
-        ("en_revision", "En revisión"),
-        ("aceptado","Aceptado"),
+        ("solicitud", "Solicitud de Reserva"),
+        ("aceptacion", "Aceptación de Reserva"),
+        ("liquidado", "Monto liquidado"),
+        ("entregado", "Entregado"),
+        ("en_curso", "En curso"),
+        ("finalizado,", "Reserva finalizada"),
+        ("cancelado", "Reserva cancelada"),
         ("rechazado", "Rechazado"),
-        ("finalizado", "Finalizado"),
     )
  
     date = models.DateField()
@@ -95,7 +106,7 @@ class Event(models.Model):
     slug = models.SlugField(unique = True, default="")
     payment_intent = models.CharField(max_length=1000, null=True, blank=True)
     # eid = ShortUUIDField(default=uuid.uuid4, length=10, alphabet='abcdefg12345')
-
+    description = models.TextField(default='', null= False )
     def total_price(self):
         return self.package.price
         
