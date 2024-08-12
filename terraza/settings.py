@@ -51,10 +51,17 @@ CORS_ORIGIN_WHITELIST = (
     'http://192.168.100.15:5173',
 
 )
+
+CORS_ALLOWED_ORIGINS = [
+    "http://52.90.173.244:8000",
+    "http://192.168.100.15:5173",
+    "http://localhost:8000",
+    "http://localhost:5173",
+]
 # CSRF_TRUSTED_ORIGINS = [ "*" ]
 CSRF_TRUSTED_ORIGINS = [ "http://0.0.0.0", "http://localhost", "http://127.0.0.1","http://52.90.173.244" ]
 
-SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'None'
 
 
 # CSRF_COOKIE_SECURE = True
