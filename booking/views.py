@@ -73,7 +73,7 @@ class EventCreateApiView(generics.CreateAPIView):
         payload = request.data
 
         print(payload)
-        user_id  = payload['client'] 
+        user_id  = payload['user_id'] 
         
         #Add default
         admin_id = 1

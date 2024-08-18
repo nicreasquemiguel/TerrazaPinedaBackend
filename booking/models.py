@@ -100,7 +100,7 @@ class Event(models.Model):
     created = models.DateTimeField(auto_now_add = True)
     modified = models.DateTimeField(auto_now = True)
     advance = models.FloatField(default = 0)
-    status = models.CharField(max_length=100, choices=STATUS, default="en_carrito")
+    status = models.CharField(max_length=100, choices=STATUS, default="solicitud")
     rating = models.PositiveIntegerField(default =0,  blank=True)
     rating_comment = models.CharField(max_length = 255, null = True,  blank=True)
     slug = models.SlugField(unique = True, default="")
