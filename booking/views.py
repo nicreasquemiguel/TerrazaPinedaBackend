@@ -104,7 +104,7 @@ class EventCreateApiView(generics.CreateAPIView):
         event.client = client
         event.admin = admin
         event.venue = venue
-        event.advance = advance
+
   
         event.save()
 
@@ -138,9 +138,12 @@ class EventDetailAPIView(generics.RetrieveAPIView):
         
     queryset = Event.objects.all()
     serializer_class = EventSerializer
-    authentication_classes = []
-    permission_classes = []
+ 
 
+class MyEventDetailAPIView(generics.RetrieveAPIView):
+        
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
 
 class CartAddAPIView(generics.ListCreateAPIView):
     queryset =  Cart.objects.all()

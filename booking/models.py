@@ -80,10 +80,11 @@ class Event(models.Model):
     STATUS = (
         ("solicitud", "Solicitud de Reserva"),
         ("aceptacion", "Aceptación de Reserva"),
+        ("apartado", "Apartado inicial"),
         ("liquidado", "Monto liquidado"),
         ("entregado", "Entregado"),
         ("en_curso", "En curso"),
-        ("finalizado,", "Reserva finalizada"),
+        ("finalizado", "Reserva finalizada"),
         ("cancelado", "Reserva cancelada"),
         ("rechazado", "Rechazado"),
     )
