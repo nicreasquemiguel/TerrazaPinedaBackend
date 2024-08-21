@@ -402,7 +402,7 @@ class PaymentSuccessView(generics.RetrieveUpdateAPIView):
     authentication_classes = []
  
 
-class MyEventsAPIView(generics.Lis):
+class MyEventsAPIView(generics.ListAPIView):
     serializer_class = EventSerializer
     queryset = Event.objects.all()
     lookup_field = 'id'
