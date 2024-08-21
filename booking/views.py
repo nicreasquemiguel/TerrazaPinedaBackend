@@ -140,10 +140,6 @@ class EventDetailAPIView(generics.RetrieveAPIView):
     serializer_class = EventSerializer
  
 
-class MyEventDetailAPIView(generics.RetrieveAPIView):
-        
-    queryset = Event.objects.all()
-    serializer_class = EventSerializer
 
 class CartAddAPIView(generics.ListCreateAPIView):
     queryset =  Cart.objects.all()
@@ -409,7 +405,10 @@ class PaymentSuccessView(generics.RetrieveUpdateAPIView):
 class MyEventsAPIView(generics.ListAPIView):
     serializer_class = EventSerializer
     queryset = Event.objects.all()
+    lookup_field = 'id'
 
 
     def get_queryset(self):
         return Event.objects.all().filter(client = self.request.user.id)
+
+
