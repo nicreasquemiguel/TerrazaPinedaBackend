@@ -405,7 +405,6 @@ class PaymentSuccessView(generics.RetrieveUpdateAPIView):
 class MyEventsAPIView(generics.ListAPIView):
     serializer_class = EventSerializer
     queryset = Event.objects.all()
-    lookup_field = 'id'
 
 
     def get_queryset(self):
