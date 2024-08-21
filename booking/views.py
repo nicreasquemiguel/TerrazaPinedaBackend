@@ -413,11 +413,16 @@ class MyEventsAPIView(generics.ListAPIView):
 
 class MyEventAPIView(generics.RetrieveAPIView):
     serializer_class = EventSerializer
-    queryset = Event.objects.all()
+    # queryset = Event.objects.all()
     lookup_field = 'id'
     
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
+    # def get(self, request, *args, **kwargs):
+    #     return self.retrieve(request, *args, **kwargs)
+
+    def get_object(self):
+        obj = Event.objects.get(pk = self.kwargs['id'])
+        self.check_object_permissions(self.request, obj)
+        return obj
 
     # def retrieve(self):
     #     return Event.objects.all().filter(client = self.request.user.id)
