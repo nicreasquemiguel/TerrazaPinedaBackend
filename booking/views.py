@@ -412,3 +412,11 @@ class MyEventsAPIView(generics.ListAPIView):
         return Event.objects.all().filter(client = self.request.user.id)
 
 
+class MyEventAPIView(generics.RetrieveUpdateDestroyAPIViewe):
+    serializer_class = EventSerializer
+    queryset = Event.objects.all()
+    lookup_field = 'id'
+
+    def get_queryset(self):
+        return Event.objects.all().filter(client = self.request.user.id)
+
