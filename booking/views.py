@@ -415,6 +415,9 @@ class MyEventAPIView(generics.RetrieveAPIView):
     serializer_class = EventSerializer
     queryset = Event.objects.all()
     lookup_field = 'id'
+    
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
 
     # def retrieve(self):
     #     return Event.objects.all().filter(client = self.request.user.id)
