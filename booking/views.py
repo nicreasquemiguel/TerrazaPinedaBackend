@@ -416,6 +416,6 @@ class MyEventAPIView(generics.RetrieveAPIView):
     queryset = Event.objects.all()
     lookup_field = 'id'
 
-    def retrieve(self):
-        return Event.objects.all().filter(client = self.request.user.id)
+    # def retrieve(self):
+    #     return Event.objects.all().filter(client = self.request.user.id)
 
