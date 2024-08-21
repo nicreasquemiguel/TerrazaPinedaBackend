@@ -420,7 +420,8 @@ class MyEventAPIView(generics.RetrieveAPIView):
     #     return self.retrieve(request, *args, **kwargs)
 
     def get_object(self):
-        obj = Event.objects.get(pk = self.kwargs['id'])
+
+        obj = Event.objects.get(pk = self.kwargs['id']).filter(client = self.request.user.id)
         self.check_object_permissions(self.request, obj)
         return obj
 
