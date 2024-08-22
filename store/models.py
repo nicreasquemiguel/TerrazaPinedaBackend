@@ -10,6 +10,27 @@ from booking.models import Event, Package
 # Create your models here.
  
 
+class PaymentOrder(models.Model):
+    PAYMENT_STATUS = (
+        ("pagado", "Pagado"),
+        ("pendiente","Pendiente"),
+        ("procesando", "Procesando"),
+        ("cancelled", "Cancelled"),
+    )
+    event = models.ManyToManyField(Event, on_delete= models.PROTECT,)
+    vendor = models.ManyToManyField(UserAccount, blank=True)
+    client = models.ForeignKey(UserAccount, on_delete=models.SET_NULL, null=True, related_name="client", blank=True)
+
+    oid = ShortUUIDField(unique=True, length=10, alphabet='abcdefg12345')
+
+    sub_total = models.DecimalField(default=0.00, max_digits=12, decimal_places=2)
+    tax_fee = models.DecimalField(default=0.00, max_digits=12, decimal_places=2)
+    total = models.DecimalField(default=0.00, max_digits=12, decimal_places=2)
+
+    payment_status = models.CharField(choices=PAYMENT_STATUS, max_length=100, default="pending")
+    stripe_session_id = models.CharField(max_length=1000, null=True, blank=True)
+    
+
 
 class Cart(models.Model):
     package = models.ForeignKey(Package, on_delete=models.CASCADE)

@@ -57,8 +57,6 @@ class EventSerializer(serializers.ModelSerializer):
             # For other methods, set serialization depth to 3.
             self.Meta.depth = 1
 
-    def total_price(self, object):
-        return 100
 
 
 class EventCreateSerializer(serializers.ModelSerializer):

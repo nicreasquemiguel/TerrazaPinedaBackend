@@ -8,6 +8,7 @@ from shortuuid.django_fields import ShortUUIDField
 import uuid
 from django.utils.text import slugify
 from users.models import UserAccount, Profile
+from store.models import PaymentOrders
 # import store.models as store
 
 
@@ -82,6 +83,8 @@ class Event(models.Model):
         ("aceptacion", "Aceptación de Reserva"),
         ("apartado", "Apartado inicial"),
         ("liquidado", "Monto liquidado"),
+        ("liquidado_entregado", "Monto liquidado y lugar entregado"),
+        ("entregado", "Entregado"),
         ("entregado", "Entregado"),
         ("en_curso", "En curso"),
         ("finalizado", "Reserva finalizada"),
@@ -109,14 +112,13 @@ class Event(models.Model):
     # eid = ShortUUIDField(default=uuid.uuid4, length=10, alphabet='abcdefg12345')
     description = models.TextField(default='', null= False )
 
+
     @property
     def total_price(self):
         total = 0
         total += self.package.price 
         for extra in self.extras.all():
             total += extra.price 
-        
-
         return total
         
 
