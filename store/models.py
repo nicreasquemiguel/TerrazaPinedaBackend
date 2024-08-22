@@ -19,7 +19,7 @@ class PaymentOrder(models.Model):
     )
     event = models.ManyToManyField(Event, blank=True)
     vendor = models.ManyToManyField(UserAccount, blank=True)
-    client = models.ForeignKey(UserAccount, on_delete=models.SET_NULL, null=True, related_name="client", blank=True)
+    payer = models.ForeignKey(UserAccount, on_delete=models.SET_NULL, null=True, related_name="payer", blank=True)
 
     oid = ShortUUIDField(unique=True, length=10, alphabet='abcdefg12345')
 
