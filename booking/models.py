@@ -108,8 +108,15 @@ class Event(models.Model):
     payment_intent = models.CharField(max_length=1000, null=True, blank=True)
     # eid = ShortUUIDField(default=uuid.uuid4, length=10, alphabet='abcdefg12345')
     description = models.TextField(default='', null= False )
+    
     def total_price(self):
-        return self.package.price
+        total = 0
+        total = self.package.price 
+        for extra in self.extras:
+            total += extra.price 
+        
+
+        return total
         
 
     # Calculates the average rating of the product
