@@ -35,7 +35,7 @@ class PackageSerializer(serializers.ModelSerializer):
 
 class EventSerializer(serializers.ModelSerializer):
     # package = serializers.CharField(source='package.title')
-    total_price = serializers.ReadOnlyField(source='total_price')
+    total_price = serializers.ReadOnlyField()
     # client = serializers.
     class Meta:
         model = Event
