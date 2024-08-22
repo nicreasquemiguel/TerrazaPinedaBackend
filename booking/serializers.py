@@ -35,7 +35,7 @@ class PackageSerializer(serializers.ModelSerializer):
 
 class EventSerializer(serializers.ModelSerializer):
     # package = serializers.CharField(source='package.title')
-
+    total_price =   serializers.FloatField()
     # client = serializers.
     class Meta:
         model = Event
@@ -56,6 +56,9 @@ class EventSerializer(serializers.ModelSerializer):
         else:
             # For other methods, set serialization depth to 3.
             self.Meta.depth = 1
+
+    def total_price(self, object):
+        return object.total_price
 
 
 class EventCreateSerializer(serializers.ModelSerializer):
