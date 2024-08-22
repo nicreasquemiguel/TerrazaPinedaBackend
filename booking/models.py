@@ -112,7 +112,7 @@ class Event(models.Model):
     @property
     def total_price(self):
         total = 0
-        total = self.package.price 
+        total += self.package.price 
         for extra in self.extras:
             total += extra.price 
         
