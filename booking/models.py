@@ -70,14 +70,6 @@ td = datetime.time(00,00,00)
 
 class Event(models.Model):
 
-    # STATUS = (
-    #     ("en_carrito", "En carrito"),
-    #     ("en_revision", "En revisión"),
-    #     ("aceptado","Aceptado"),
-    #     ("rechazado", "Rechazado"),
-    #     ("finalizado", "Finalizado"),
-    # )
-
     STATUS = (
         ("solicitud", "Solicitud de Reserva"),
         ("aceptacion", "Aceptación de Reserva"),
