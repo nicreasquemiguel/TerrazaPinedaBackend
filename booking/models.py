@@ -108,7 +108,8 @@ class Event(models.Model):
     payment_intent = models.CharField(max_length=1000, null=True, blank=True)
     # eid = ShortUUIDField(default=uuid.uuid4, length=10, alphabet='abcdefg12345')
     description = models.TextField(default='', null= False )
-    
+
+    @property
     def total_price(self):
         total = 0
         total = self.package.price 
