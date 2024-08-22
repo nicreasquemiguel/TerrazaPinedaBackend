@@ -423,7 +423,7 @@ class MyEventAPIView(generics.RetrieveAPIView):
 
         obj = Event.objects.get(pk = self.kwargs['id'])
         print(obj.date)
-        print(obj.get_total)
+        print(obj.total_price)
         if obj.client == self.request.user:
             self.check_object_permissions(self.request, obj)
             return obj
