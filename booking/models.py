@@ -8,7 +8,7 @@ from shortuuid.django_fields import ShortUUIDField
 import uuid
 from django.utils.text import slugify
 from users.models import UserAccount, Profile
-from store.models import PaymentOrders
+
 # import store.models as store
 
 
