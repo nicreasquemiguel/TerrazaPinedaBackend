@@ -17,7 +17,7 @@ class PaymentOrder(models.Model):
         ("procesando", "Procesando"),
         ("cancelled", "Cancelled"),
     )
-    event = models.ManyToManyField(Event, on_delete=models.CASCADE)
+    event = models.ManyToManyField(Event)
     vendor = models.ManyToManyField(UserAccount, blank=True)
     client = models.ForeignKey(UserAccount, on_delete=models.SET_NULL, null=True, related_name="client", blank=True)
 
