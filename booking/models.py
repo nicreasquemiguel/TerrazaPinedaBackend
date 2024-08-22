@@ -113,7 +113,7 @@ class Event(models.Model):
     def total_price(self):
         total = 0
         total += self.package.price 
-        for extra in self.extras:
+        for extra in self.extras.all():
             total += extra.price 
         
 
