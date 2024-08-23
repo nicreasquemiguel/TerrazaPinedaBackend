@@ -194,7 +194,7 @@ class StripeCheckoutAPI(generics.CreateAPIView):
         payload = request.data
         print(payload)
 
-        full_name = payload['full_name']
+        # full_name = payload['full_name']
         email = payload['email']
         phone = payload['phone']
         event_id = payload['event_id']
