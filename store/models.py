@@ -160,7 +160,7 @@ def update_event_rating(sender, instance, **kwargs):
 
 class Notification(models.Model):
     user = models.ForeignKey(UserAccount, on_delete=models.SET_NULL, null=True, blank=True, related_name="user")
-    vendor = models.ForeignKey(UserAccount, on_delete=models.SET_NULL, null=True, blank=True, related_name='vendor')
+    vendor = models.ForeignKey(UserAccount, on_delete=models.SET_NULL, null=True, blank=True, related_name='vendor_noti')
     order = models.ForeignKey(CartOrder, on_delete=models.SET_NULL, null=True, blank=True)
     order_item = models.ForeignKey(CartOrderItem, on_delete=models.SET_NULL, null=True, blank=True)
     seen = models.BooleanField(default=False)
