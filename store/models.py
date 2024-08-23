@@ -18,7 +18,7 @@ class PaymentOrder(models.Model):
         ("cancelled", "Cancelled"),
     )
     event = models.ManyToManyField(Event, blank=True)
-    vendor = models.ManyToManyField(UserAccount, blank=True)
+    vendor = models.ManyToManyField(UserAccount, related_name="vendor", blank=True)
     payer = models.ForeignKey(UserAccount, on_delete=models.SET_NULL, null=True, related_name="payer", blank=True)
 
     oid = ShortUUIDField(unique=True, length=10, alphabet='abcdefg12345')
