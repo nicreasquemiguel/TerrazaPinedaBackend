@@ -77,8 +77,6 @@ class Event(models.Model):
         ("liquidado", "Monto liquidado"),
         ("liquidado_entregado", "Monto liquidado y lugar entregado"),
         ("entregado", "Entregado"),
-        ("entregado", "Entregado"),
-        ("en_curso", "En curso"),
         ("finalizado", "Reserva finalizada"),
         ("cancelado", "Reserva cancelada"),
         ("rechazado", "Rechazado"),

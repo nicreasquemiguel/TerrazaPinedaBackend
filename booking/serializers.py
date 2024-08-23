@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Venue, Package, Event, Extra, Rule
-from store.models import Cart, CartOrder, CartOrderItem, BookingFAQ, Coupon, Review, Notification
+from store.models import Cart, CartOrder, CartOrderItem, BookingFAQ, Coupon, Review, Notification, PaymentOrder
 from django.contrib.auth import get_user_model
 from users.serializers import UserCreateSerializer, ProfileSerializer
 from users.models import UserAccount
@@ -124,12 +124,11 @@ class CartOrderItemSerializer(serializers.ModelSerializer):
             self.Meta.depth = 3
 
             # Define a serializer for the CartOrder model
-class CartOrderSerializer(serializers.ModelSerializer):
+class PaymentOrderSerializer(serializers.ModelSerializer):
     # Serialize related CartOrderItem models
-    orderitem = CartOrderItemSerializer(many=True, read_only=True)
 
     class Meta:
-        model = CartOrder
+        model = PaymentOrder
         fields = '__all__'
 
     def update(self, instance, validated_data):
@@ -141,7 +140,7 @@ class CartOrderSerializer(serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
     def __init__(self, *args, **kwargs):
-        super(CartOrderSerializer, self).__init__(*args, **kwargs)
+        super(PaymentOrderSerializer, self).__init__(*args, **kwargs)
         # Customize serialization depth based on the request method.
         request = self.context.get('request')
         if request and request.method == 'POST':

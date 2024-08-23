@@ -23,14 +23,19 @@ class PaymentOrder(models.Model):
 
     oid = ShortUUIDField(unique=True, length=10, alphabet='abcdefg12345')
 
-    sub_total = models.DecimalField(default=0.00, max_digits=12, decimal_places=2)
+    subtotal = models.DecimalField(default=0.00, max_digits=12, decimal_places=2)
     tax_fee = models.DecimalField(default=0.00, max_digits=12, decimal_places=2)
     total = models.DecimalField(default=0.00, max_digits=12, decimal_places=2)
 
     payment_status = models.CharField(choices=PAYMENT_STATUS, max_length=100, default="pending")
     stripe_session_id = models.CharField(max_length=1000, null=True, blank=True)
     
-
+    def save(self, *args, **kwargs):
+        if self.subtotal:
+            self.tax_fee = (self.subtotal * 0.16)
+            self.total = self.subtotal + self.tax_fee
+            
+        super(PaymentOrder, self).save(*args, **kwargs) 
 
 class Cart(models.Model):
     package = models.ForeignKey(Package, on_delete=models.CASCADE)

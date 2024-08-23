@@ -3,7 +3,7 @@ from rest_framework.viewsets import ModelViewSet
 import stripe.error
 from .models import Venue, Package, Event, Extra, Rule
 from users.models import UserAccount, Profile
-from store.models import Cart, CartOrder, CartOrderItem, Tax, Coupon
+from store.models import Cart, CartOrder, CartOrderItem, Tax, Coupon, PaymentOrder
 from .serializers import VenueSerializer, PackageSerializer, EventSerializer, EventCreateSerializer, ExtraSerializer, RuleSerializer, CartSerializer, CartOrderItemSerializer, CartOrderSerializer, DatesOccupiedSerializer, CouponSerializer
 from rest_framework import generics
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -183,8 +183,8 @@ class CouponAPIView(generics.RetrieveAPIView):
 
 
 class StripeCheckoutAPI(generics.CreateAPIView):
-    serializer_class = CartOrderSerializer
-    queryset = CartOrder.objects.all()
+    serializer_class = PaymentOrder
+    queryset = PaymentOrder.objects.all()
     authentication_classes = []
     permission_classes = []
     
@@ -223,20 +223,22 @@ class StripeCheckoutAPI(generics.CreateAPIView):
 
         
 
-        order = CartOrder.objects.create(
+        order = PaymentOrder.objects.create(
             # sub_total=total_sub_total,
             # shipping_amount=total_shipping,
             # tax_fee=total_tax,
             # service_fee=total_service_fee,
-            buyer=user,
-            payment_status="processing",
-            full_name=full_name,
-            email=email,
-            phone=phone,
+            payer=user,
+            payment_status="procesando",
+            subtotal = 1000,
+
+            # full_name=full_name,
+            # email=email,
+            # phone=phone,
 
             event=event
             # buyer=user_id,
-            # vendor=user
+            vendor=1
         #     address=address,
         #     city=city,
         #     state=state,
@@ -261,7 +263,7 @@ class StripeCheckoutAPI(generics.CreateAPIView):
                         'price_data': {
                             'currency': 'mxn',
                             'product_data': {
-                                'name': order.full_name,
+                                'name': order.payer.get_full_name(),
                                 'description':  order.oid + ' para la fecha: ' + str(event.date),
                                 
                             },
