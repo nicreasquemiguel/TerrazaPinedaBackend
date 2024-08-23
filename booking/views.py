@@ -236,9 +236,9 @@ class StripeCheckoutAPI(generics.CreateAPIView):
             # email=email,
             # phone=phone,
 
-            event=event
+            event=event,
             # buyer=user_id,
-            vendor=user,
+            vendor=user
         #     address=address,
         #     city=city,
         #     state=state,
