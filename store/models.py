@@ -17,9 +17,9 @@ class PaymentOrder(models.Model):
         ("procesando", "Procesando"),
         ("cancelled", "Cancelled"),
     )
-    event = models.ForeignKey(Event, on_delete=models.SET_NULL, blank=True)
-    vendor = models.ForeignKey(UserAccount,on_delete=models.SET_NULL, related_name="vendor", blank=True)
-    payer = models.ForeignKey(UserAccount, on_delete=models.SET_NULL, null=True, related_name="payer", blank=True)
+    event = models.ForeignKey(Event, on_delete=models.PROTECT, blank=True)
+    vendor = models.ForeignKey(UserAccount,on_delete=models.PROTECT, related_name="vendor", blank=True)
+    payer = models.ForeignKey(UserAccount, on_delete=models.PROTECT, null=True, related_name="payer", blank=True)
 
     oid = ShortUUIDField(unique=True, length=10, alphabet='abcdefg12345')
 
