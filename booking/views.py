@@ -4,7 +4,7 @@ import stripe.error
 from .models import Venue, Package, Event, Extra, Rule
 from users.models import UserAccount, Profile
 from store.models import Cart, CartOrder, CartOrderItem, Tax, Coupon, PaymentOrder
-from .serializers import VenueSerializer, PackageSerializer, EventSerializer, EventCreateSerializer, ExtraSerializer, RuleSerializer, CartSerializer, CartOrderItemSerializer,  DatesOccupiedSerializer, CouponSerializer
+from .serializers import VenueSerializer, PackageSerializer, EventSerializer, EventCreateSerializer, ExtraSerializer, RuleSerializer,   DatesOccupiedSerializer, CouponSerializer
 from rest_framework import generics
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication, BasicAuthentication
