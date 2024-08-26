@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Venue, Package, Event, Extra, Rule
-from store.models import Cart, CartOrder, CartOrderItem, BookingFAQ, Coupon, Review, Notification, PaymentOrder
+from store.models import BookingFAQ, Coupon, Review, Notification, PaymentOrder
 from django.contrib.auth import get_user_model
 from users.serializers import UserCreateSerializer, ProfileSerializer
 from users.models import UserAccount
@@ -82,46 +82,6 @@ class DatesOccupiedSerializer(serializers.ModelSerializer):
         fields = ['date']
         # depth = 1
 
-
-
-
-
-class CartSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Cart
-        fields = "__all__"
-
-    def __init__(self, *args, **kwargs):
-        super(CartSerializer, self).__init__(*args, **kwargs)
-        # Customize serialization depth based on the request method.
-        request = self.context.get('request')
-        if request and request.method == 'POST':
-            # When creating a new cart order item, set serialization depth to 0.
-            self.Meta.depth = 0
-        else:
-            # For other methods, set serialization depth to 3.
-            self.Meta.depth = 3
-
-
-# Define a serializer for the CartOrderItem model
-class CartOrderItemSerializer(serializers.ModelSerializer):
-    # Serialize the related Product model
-    # product = ProductSerializer()  
-
-    class Meta:
-        model = CartOrderItem
-        fields = '__all__'
-      
-    def __init__(self, *args, **kwargs):
-        super(CartOrderItemSerializer, self).__init__(*args, **kwargs)
-        # Customize serialization depth based on the request method.
-        request = self.context.get('request')
-        if request and request.method == 'POST':
-            # When creating a new cart order item, set serialization depth to 0.
-            self.Meta.depth = 0
-        else:
-            # For other methods, set serialization depth to 3.
-            self.Meta.depth = 3
 
             # Define a serializer for the CartOrder model
 class PaymentOrderSerializer(serializers.ModelSerializer):
