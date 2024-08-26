@@ -80,23 +80,23 @@ def update_event_rating(sender, instance, **kwargs):
     if instance.event: 
         instance.event.save()
 
-class Notification(models.Model):
-    user = models.ForeignKey(UserAccount, on_delete=models.SET_NULL, null=True, blank=True, related_name="user")
-    vendor = models.ForeignKey(UserAccount, on_delete=models.SET_NULL, null=True, blank=True, related_name='vendor_noti')
-    order = models.ForeignKey(CartOrder, on_delete=models.SET_NULL, null=True, blank=True)
-    order_item = models.ForeignKey(CartOrderItem, on_delete=models.SET_NULL, null=True, blank=True)
-    seen = models.BooleanField(default=False)
-    date = models.DateTimeField(auto_now_add=True)
+# class Notification(models.Model):
+#     user = models.ForeignKey(UserAccount, on_delete=models.SET_NULL, null=True, blank=True, related_name="user")
+#     vendor = models.ForeignKey(UserAccount, on_delete=models.SET_NULL, null=True, blank=True, related_name='vendor_noti')
+#     order = models.ForeignKey(CartOrder, on_delete=models.SET_NULL, null=True, blank=True)
+#     order_item = models.ForeignKey(CartOrderItem, on_delete=models.SET_NULL, null=True, blank=True)
+#     seen = models.BooleanField(default=False)
+#     date = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        verbose_name_plural = "Notification"
+#     class Meta:
+#         verbose_name_plural = "Notification"
     
-    # Method to return a string representation of the object
-    def __str__(self):
-        if self.order:
-            return self.order.oid
-        else:
-            return "Notification"
+#     # Method to return a string representation of the object
+#     def __str__(self):
+#         if self.order:
+#             return self.order.oid
+#         else:
+#             return "Notification"
 
 class Coupon(models.Model):
     # A foreign key relationship to the Vendor model with SET_NULL option, allowing null values, and specifying a related name
