@@ -33,6 +33,9 @@ class PaymentOrder(models.Model):
     def save(self, *args, **kwargs):
         if self.payment_status == "pagado":
             self.event.advance += float(self.subtotal)
+            self.event.save()
+            # event = Event.objects.get(eid = self.event.eid)
+            # event.advance += float(self.subtotal)
 
         if self.subtotal:
             self.tax_fee = (float(self.subtotal) * 0.16)
