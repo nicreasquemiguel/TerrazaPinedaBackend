@@ -32,8 +32,8 @@ class PaymentOrder(models.Model):
     
     def save(self, *args, **kwargs):
         if self.payment_status == "pagado":
-            self.event.advance += self.subtotal
-            
+            self.event.advance += float(self.subtotal)
+
         if self.subtotal:
             self.tax_fee = (float(self.subtotal) * 0.16)
             self.total = float(self.subtotal) + self.tax_fee
