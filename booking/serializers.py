@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Venue, Package, Event, Extra, Rule
-from store.models import BookingFAQ, Coupon, Review, Notification, PaymentOrder
+from store.models import BookingFAQ, Coupon, Review, PaymentOrder
 from django.contrib.auth import get_user_model
 from users.serializers import UserCreateSerializer, ProfileSerializer
 from users.models import UserAccount
