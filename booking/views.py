@@ -4,7 +4,7 @@ import stripe.error
 from .models import Venue, Package, Event, Extra, Rule
 from users.models import UserAccount, Profile
 from store.models import Tax, Coupon, PaymentOrder
-from .serializers import VenueSerializer, PackageSerializer, EventSerializer, EventCreateSerializer, ExtraSerializer, RuleSerializer,   DatesOccupiedSerializer, CouponSerializer
+from .serializers import VenueSerializer, PackageSerializer, EventSerializer, EventCreateSerializer, ExtraSerializer, RuleSerializer,   DatesOccupiedSerializer, CouponSerializer, PaymentOrderSerializer
 from rest_framework import generics
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication, BasicAuthentication
@@ -293,7 +293,7 @@ class StripeCheckoutAPI(generics.CreateAPIView):
 
 
 class PaymentSuccessView(generics.RetrieveUpdateAPIView):
-    serializer_class = PaymentOrder
+    serializer_class = PaymentOrderSerializer
     queryset = PaymentOrder.objects.all()
     lookup_field = 'oid'
 
@@ -302,7 +302,7 @@ class PaymentSuccessView(generics.RetrieveUpdateAPIView):
  
 
 class OrdersView(ReadOnlyModelViewSet):
-    serializer_class = PaymentOrder
+    serializer_class = PaymentOrderSerializer
     queryset = PaymentOrder.objects.all()
     lookup_field = 'oid'
 
