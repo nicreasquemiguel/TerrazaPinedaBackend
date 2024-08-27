@@ -33,7 +33,7 @@ class PaymentOrder(models.Model):
     def save(self, *args, **kwargs):
         if self.subtotal:
             self.tax_fee = (float(self.subtotal) * 0.16)
-            self.total = self.subtotal + self.tax_fee
+            self.total = float(self.subtotal) + self.tax_fee
             
         super(PaymentOrder, self).save(*args, **kwargs) 
 
