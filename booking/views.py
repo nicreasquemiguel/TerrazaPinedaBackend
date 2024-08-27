@@ -329,7 +329,7 @@ class MyEventAPIView(generics.RetrieveAPIView):
 
     def get_object(self):
 
-        obj = Event.objects.get(pk = self.kwargs['id'])
+        obj = Event.objects.get(pk = self.kwargs['eid'])
         print(obj.date)
         print(obj.total_price)
         if obj.client == self.request.user:
