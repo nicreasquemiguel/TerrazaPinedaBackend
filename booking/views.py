@@ -258,7 +258,7 @@ class StripeCheckoutAPI(generics.CreateAPIView):
         try:
             print('sttrrip')
             checkout_session = stripe.checkout.Session.create(
-                customer_email=order.email,
+                customer_email=order.payer.email,
                 payment_method_types=['card'],
                 line_items=[
                     {
