@@ -275,7 +275,7 @@ class StripeCheckoutAPI(generics.CreateAPIView):
                     }
                 ],
                 mode='payment',
-                success_url=settings.SITE_URL_FRONTEND+'pago-exitoso/'+ order.oid +'/?session_id={CHECKOUT_SESSION_ID}',
+                success_url=settings.SITE_URL_FRONTEND+'mis-eventos/'+order.event.eid+'ordenes/'+ order.oid +'/?session_id={CHECKOUT_SESSION_ID}',
                 cancel_url=settings.SITE_URL_FRONTEND+'?session_id={CHECKOUT_SESSION_ID}',
             )
 
