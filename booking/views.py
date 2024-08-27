@@ -3,7 +3,7 @@ from rest_framework.viewsets import ModelViewSet
 import stripe.error
 from .models import Venue, Package, Event, Extra, Rule
 from users.models import UserAccount, Profile
-from store.models import Cart, CartOrder, CartOrderItem, Tax, Coupon, PaymentOrder
+from store.models import Tax, Coupon, PaymentOrder
 from .serializers import VenueSerializer, PackageSerializer, EventSerializer, EventCreateSerializer, ExtraSerializer, RuleSerializer,   DatesOccupiedSerializer, CouponSerializer
 from rest_framework import generics
 from rest_framework_simplejwt.authentication import JWTAuthentication
