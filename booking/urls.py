@@ -5,9 +5,14 @@ from .views import *
 from users.views import ProfileView
 
 
+router = DefaultRouter()
+# router.register('lugares', VenueViewSet, basename='lugares')
+router.register('orders', OrdersView)
+
 
 urlpatterns = [
     # path('', views.home, name='home'),
+    path('', include(router.urls)),
     path('sitios/', VenueListAPIView.as_view()),
     path('paquetes/', PackageViewSet.as_view({'get': 'list'})),
     path('extras/', ExtraListAPIView.as_view()),
@@ -25,7 +30,7 @@ urlpatterns = [
     #Store endpoints
     # path('cart-view/', CartAddAPIView.as_view()),
     # path('create-order/', CreateOrderAPIView.as_view()),
-    path('orders/<oid>/', OrdersView.as_view({'get': 'list',})),
+    # path('orders/<oid>/', OrdersView.as_view({'get': 'list',})),
 
     path('checkout/<int:pk>', CheckoutAPIView.as_view()),
     path('coupons/<code>', CouponAPIView.as_view()),
