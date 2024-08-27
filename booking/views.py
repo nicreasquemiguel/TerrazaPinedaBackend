@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 import stripe.error
 from .models import Venue, Package, Event, Extra, Rule
 from users.models import UserAccount, Profile
@@ -292,13 +292,22 @@ class StripeCheckoutAPI(generics.CreateAPIView):
             return Response( {'error': f'Something went wrong when creating stripe checkout session: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-# class PaymentSuccessView(generics.RetrieveUpdateAPIView):
-#     serializer_class = CartOrderSerializer
-#     queryset = CartOrder.objects.all()
-#     lookup_field = 'oid'
+class PaymentSuccessView(generics.RetrieveUpdateAPIView):
+    serializer_class = PaymentOrder
+    queryset = PaymentOrder.objects.all()
+    lookup_field = 'oid'
 
-#     permission_classes = [AllowAny]
-#     authentication_classes = []
+    permission_classes = [AllowAny]
+    authentication_classes = []
+ 
+
+class OrdersView(ReadOnlyModelViewSet):
+    serializer_class = PaymentOrder
+    queryset = PaymentOrder.objects.all()
+    lookup_field = 'oid'
+
+    permission_classes = [AllowAny]
+    authentication_classes = []
  
 
 class MyEventsAPIView(generics.ListAPIView):
@@ -313,7 +322,7 @@ class MyEventsAPIView(generics.ListAPIView):
 class MyEventAPIView(generics.RetrieveAPIView):
     serializer_class = EventSerializer
     # queryset = Event.objects.all()
-    lookup_field = 'id'
+    lookup_field = 'eid'
     
     # def get(self, request, *args, **kwargs):
     #     return self.retrieve(request, *args, **kwargs)

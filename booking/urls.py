@@ -25,11 +25,11 @@ urlpatterns = [
     #Store endpoints
     # path('cart-view/', CartAddAPIView.as_view()),
     # path('create-order/', CreateOrderAPIView.as_view()),
-    # path('orders/<oid>/', CartOrderDetailView.as_view()),
+    path('orders/<oid>/', OrdersView.as_view()),
 
     path('checkout/<int:pk>', CheckoutAPIView.as_view()),
     path('coupons/<code>', CouponAPIView.as_view()),
     path('stripe-checkout/', StripeCheckoutAPI.as_view(), name='stripe-checkout'),
-    # path('pago-exitoso/<oid>/', PaymentSuccessView.as_view(), name='payment-success'),
+    path('pago-exitoso/<oid>/', PaymentSuccessView.as_view(), name='payment-success'),
 
 ]
