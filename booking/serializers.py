@@ -191,21 +191,21 @@ class CouponSerializer(serializers.ModelSerializer):
             self.Meta.depth = 3
 
 
-class NotificationSerializer(serializers.ModelSerializer):
+# class NotificationSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = Notification
-        fields = '__all__'
+#     class Meta:
+#         model = Notification
+#         fields = '__all__'
 
-    def __init__(self, *args, **kwargs):
-        super(NotificationSerializer, self).__init__(*args, **kwargs)
-        # Customize serialization depth based on the request method.
-        request = self.context.get('request')
-        if request and request.method == 'POST':
-            # When creating a new coupon user, set serialization depth to 0.
-            self.Meta.depth = 0
-        else:
-            # For other methods, set serialization depth to 3.
-            self.Meta.depth = 3
+#     def __init__(self, *args, **kwargs):
+#         super(NotificationSerializer, self).__init__(*args, **kwargs)
+#         # Customize serialization depth based on the request method.
+#         request = self.context.get('request')
+#         if request and request.method == 'POST':
+#             # When creating a new coupon user, set serialization depth to 0.
+#             self.Meta.depth = 0
+#         else:
+#             # For other methods, set serialization depth to 3.
+#             self.Meta.depth = 3
 
 
