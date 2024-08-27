@@ -98,7 +98,7 @@ class PaymentOrderSerializer(serializers.ModelSerializer):
         #     instance.payment_status = ps_obj
         if instance.linked == False:
             print('changed')
-            instance.linked = True
+  
             instance.payment_status = 'pagado'
         return super().update(instance, validated_data)
 
