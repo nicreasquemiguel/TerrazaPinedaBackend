@@ -30,7 +30,7 @@ from rest_framework_swagger.views import get_swagger_view
 
 router = DefaultRouter()
 # router.register('lugares', VenueViewSet, basename='lugares')
-
+router.register('orders', OrdersView, basename='orders')
 
 schema_view = get_swagger_view(title="Terraza Pineda Booking Documentation APIs")
 

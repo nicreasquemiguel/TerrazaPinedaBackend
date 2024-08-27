@@ -25,7 +25,7 @@ urlpatterns = [
     #Store endpoints
     # path('cart-view/', CartAddAPIView.as_view()),
     # path('create-order/', CreateOrderAPIView.as_view()),
-    path('orders/<oid>/', OrdersView.as_view()),
+    path('orders/<oid>/', OrdersView.as_view({'get': 'list',})),
 
     path('checkout/<int:pk>', CheckoutAPIView.as_view()),
     path('coupons/<code>', CouponAPIView.as_view()),
