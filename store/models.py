@@ -17,23 +17,37 @@ class PaymentOrder(models.Model):
         ("procesando", "Procesando"),
         ("cancelled", "Cancelled"),
     )
+
+
+    PAYMENT_TYPES = (
+        ("stripe", "Pago por Stripe"),
+        ("deposito", "Deposito Bancario"),
+        ("transferencia", "Transferncia Bancaria"),
+    )
+
     event = models.ForeignKey(Event, on_delete=models.PROTECT, blank=True)
     vendor = models.ForeignKey(UserAccount,on_delete=models.PROTECT, related_name="vendor", blank=True)
     payer = models.ForeignKey(UserAccount, on_delete=models.PROTECT, null=True, related_name="payer", blank=True)
 
     oid = ShortUUIDField(unique=True, length=10, alphabet='abcdefg12345')
+    created = models.DateTimeField(auto_now_add = True)
 
     subtotal = models.DecimalField(default=0.00, max_digits=12, decimal_places=2)
     tax_fee = models.DecimalField(default=0.00, max_digits=12, decimal_places=2)
     total = models.DecimalField(default=0.00, max_digits=12, decimal_places=2)
 
+    linked = models.BooleanField(default=False)
     payment_status = models.CharField(choices=PAYMENT_STATUS, max_length=100, default="pending")
+    payment_type = models.CharField(choices=PAYMENT_TYPES, max_length=100)
     stripe_session_id = models.CharField(max_length=1000, null=True, blank=True)
     
+
     def save(self, *args, **kwargs):
-        if self.payment_status == "pagado":
+        if self.payment_status == "pagado" and not self.linked:
             self.event.advance += float(self.subtotal)
+            
             self.event.save()
+            self.linked = True
             # event = Event.objects.get(eid = self.event.eid)
             # event.advance += float(self.subtotal)
 
