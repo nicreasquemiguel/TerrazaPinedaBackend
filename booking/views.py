@@ -311,8 +311,8 @@ class OrdersView(ReadOnlyModelViewSet):
     permission_classes = [AllowAny]
     authentication_classes = []
 
-    def get_queryset(self):
-        return PaymentOrder.objects.all().filter(payer = self.request.user)
+    # def get_queryset(self):
+    #     return PaymentOrder.objects.all().filter(payer = self.request.user)
 
 
 class MyEventsAPIView(generics.ListAPIView):
