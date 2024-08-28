@@ -85,6 +85,7 @@ class EventCreateApiView(generics.CreateAPIView):
         date  = payload['date']
         #Get package from people 
         people  = payload['people']
+        description  = payload['description']
         extras = json.loads(payload['extras'])
 
         ## Get objects
@@ -102,6 +103,7 @@ class EventCreateApiView(generics.CreateAPIView):
         event.date = date
         event.package = package
         event.client = client
+        event.description = description
         event.admin = admin
         event.venue = venue
 
@@ -308,7 +310,10 @@ class OrdersView(ReadOnlyModelViewSet):
 
     permission_classes = [AllowAny]
     authentication_classes = []
- 
+
+    def get_queryset(self):
+        return PaymentOrder.objects.all().filter(payer = self.request.user)
+
 
 class MyEventsAPIView(generics.ListAPIView):
     serializer_class = EventSerializer

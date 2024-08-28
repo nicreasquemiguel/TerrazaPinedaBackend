@@ -128,6 +128,7 @@ class Event(models.Model):
                 
         # self.rating = self.event_rating()
         
+        
         super(Event, self).save(*args, **kwargs)
 
     def __str__(self):

@@ -96,10 +96,10 @@ class PaymentOrderSerializer(serializers.ModelSerializer):
         # ps_obj = CartOrder.objects.filter(payment_status=payment_status).first()
         # if ps_obj:
         #     instance.payment_status = ps_obj
-        if instance.linked == False:
-            print('changed')
+        # if instance.linked == False:
+        print(instance)
   
-            instance.payment_status = 'pagado'
+        instance.payment_status = 'pagado'
         return super().update(instance, validated_data)
 
     def __init__(self, *args, **kwargs):

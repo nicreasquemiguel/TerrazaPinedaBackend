@@ -43,9 +43,10 @@ class PaymentOrder(models.Model):
     
 
     def save(self, *args, **kwargs):
-        if self.payment_status == "pagado" and not self.linked:
+        if self.payment_status == "pagado" and self.linked == False:
             self.event.advance += float(self.subtotal)
             
+            print('saviend')
             self.event.save()
             self.linked = True
             # event = Event.objects.get(eid = self.event.eid)
