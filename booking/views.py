@@ -200,6 +200,7 @@ class StripeCheckoutAPI(generics.CreateAPIView):
         # email = payload['email']
         # phone = payload['phone']
         event_id = payload['event_id']
+        type = payload['type']
         # address = payload['address']
         # city = payload['city']
         # state = payload['state']
@@ -234,6 +235,7 @@ class StripeCheckoutAPI(generics.CreateAPIView):
             # service_fee=total_service_fee,
             payer=user,
             payment_status="procesando",
+            type=type,
             subtotal = 1000,
 
             # full_name=full_name,
