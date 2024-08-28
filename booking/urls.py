@@ -7,7 +7,7 @@ from users.views import ProfileView
 
 router = DefaultRouter()
 # router.register('lugares', VenueViewSet, basename='lugares')
-router.register('orders', OrdersView)
+router.register(r'mis-eventos/(?P<eid>.+)/orders', OrdersView)
 
 
 urlpatterns = [

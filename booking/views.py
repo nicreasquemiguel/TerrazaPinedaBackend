@@ -319,6 +319,7 @@ class OrdersView(ReadOnlyModelViewSet):
         # print(self.request.user.id)
         print(self.request.__dict__)
         print(self.request.data)
+        print(self.kwargs)
         return PaymentOrder.objects.all().filter(payer = self.request.user.id)
 
 
