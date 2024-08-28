@@ -304,7 +304,7 @@ class PaymentSuccessView(generics.RetrieveUpdateAPIView):
     authentication_classes = []
  
 
-class OrdersView(ReadOnlyModelViewSet):
+class OrdersView(ModelViewSet):
     serializer_class = PaymentOrderSerializer
     queryset = PaymentOrder.objects.all()
     lookup_field = 'oid'
