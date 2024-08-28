@@ -200,7 +200,7 @@ class StripeCheckoutAPI(generics.CreateAPIView):
         # email = payload['email']
         # phone = payload['phone']
         event_id = payload['event_id']
-        type = payload['type']
+        type = 'stripe'
         # address = payload['address']
         # city = payload['city']
         # state = payload['state']
