@@ -311,8 +311,8 @@ class OrdersView(ReadOnlyModelViewSet):
 
 
     def get_queryset(self):
-        print(self.request.user)
-        return PaymentOrder.objects.all().filter(payer = self.request.user)
+        print(self.request.user.id)
+        return PaymentOrder.objects.all().filter(payer = self.request.user.id)
 
 
 class MyEventsAPIView(generics.ListAPIView):
