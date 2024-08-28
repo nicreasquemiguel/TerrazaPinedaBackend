@@ -320,7 +320,7 @@ class OrdersView(ReadOnlyModelViewSet):
         print(self.request.__dict__)
         print(self.request.data)
         print(self.kwargs)
-        return PaymentOrder.objects.all().filter(payer = self.request.user.id).filter(event= self.kwargs['eid'])
+        return PaymentOrder.objects.all().filter(payer = self.request.user.id).filter(event__eid = self.kwargs['eid'])
 
 
 class MyEventsAPIView(generics.ListAPIView):
