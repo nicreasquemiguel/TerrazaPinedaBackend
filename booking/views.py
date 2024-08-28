@@ -308,9 +308,9 @@ class OrdersView(ReadOnlyModelViewSet):
     queryset = PaymentOrder.objects.all()
     lookup_field = 'oid'
 
-    # permission_classes = [AllowAny]
-    # authentication_classes = []
- 
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = [AllowAny]
+
 
 
     def get_queryset(self):
