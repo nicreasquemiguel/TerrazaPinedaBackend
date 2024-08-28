@@ -311,7 +311,7 @@ class OrdersView(ReadOnlyModelViewSet):
 
 
     def get_queryset(self):
-        print(self.request)
+        print(self.request.user)
         return PaymentOrder.objects.all().filter(payer = self.request.user)
 
 
