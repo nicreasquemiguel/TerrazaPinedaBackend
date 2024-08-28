@@ -44,8 +44,6 @@ class PaymentOrder(models.Model):
 
     def save(self, *args, **kwargs):
         if self.payment_status == "pagado" and self.linked == False:
-            if self.event.advance == 0:
-                self.event.status = "apartado"
 
             self.event.advance += float(self.subtotal)
                         

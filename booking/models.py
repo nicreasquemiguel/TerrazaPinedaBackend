@@ -122,10 +122,12 @@ class Event(models.Model):
     def save(self, *args, **kwargs):
         if self.slug == "" or self.slug == None:
             self.slug = slugify(str(self.client.id) + '-' + self.date) 
-        
-        if self.status == 'en_carrito':
-            pass
-                
+
+        if self.advance == 0:
+            self.status = "apartado"
+        elif self.advance >= self.total_price:
+            self.status == "liquidado"
+
         # self.rating = self.event_rating()
         
         
