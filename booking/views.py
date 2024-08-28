@@ -307,6 +307,7 @@ class PaymentSuccessView(generics.RetrieveUpdateAPIView):
 class OrdersView(ModelViewSet):
     serializer_class = PaymentOrderSerializer
     queryset = PaymentOrder.objects.all()
+    lookup_field = 'oid'
     lookup_fields = ['oid']
 
     authentication_classes = (JWTAuthentication,)
