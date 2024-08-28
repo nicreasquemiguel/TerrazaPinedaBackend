@@ -308,11 +308,14 @@ class OrdersView(ReadOnlyModelViewSet):
     queryset = PaymentOrder.objects.all()
     lookup_field = 'oid'
 
+    permission_classes = [AllowAny]
+    authentication_classes = []
+ 
 
 
     def get_queryset(self):
-        print(self.request.user.id)
-        print(self.request.data)
+        # print(self.request.user.id)
+        # print(self.request.__dict__)
         return PaymentOrder.objects.all().filter(payer = self.request.user.id)
 
 
