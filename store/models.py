@@ -41,6 +41,8 @@ class PaymentOrder(models.Model):
     payment_type = models.CharField(choices=PAYMENT_TYPES, max_length=100)
     stripe_session_id = models.CharField(max_length=1000, null=True, blank=True)
     
+    def __str__(self):
+        return self.event.date + self.oid
 
     def save(self, *args, **kwargs):
         if self.payment_status == "pagado" and self.linked == False:

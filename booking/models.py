@@ -123,7 +123,7 @@ class Event(models.Model):
         if self.slug == "" or self.slug == None:
             self.slug = slugify(str(self.client.id) + '-' + self.date) 
 
-        if self.advance == 0:
+        if self.advance == 0 and self.status == "aceptacion":
             self.status = "apartado"
         elif self.advance >= self.total_price:
             self.status == "liquidado"
