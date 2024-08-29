@@ -272,14 +272,14 @@ class StripeCheckoutAPI(generics.CreateAPIView):
                                 'description':  order.oid + 'la fecha: ' + str(event.date),
                                 
                             },
-                            'unit_amount': (order.total * 100),
+                            'unit_amount': int(order.total * 100),
                         },
                         'quantity': 1,
                     }
                 ],
                 mode='payment',
-                success_url=settings.SITE_URL_FRONTEND+'mis-eventos/'+order.event.eid+'/ordenes/'+ order.oid +'/?session_id={CHECKOUT_SESSION_ID}',
-                cancel_url=settings.SITE_URL_FRONTEND+'?session_id={CHECKOUT_SESSION_ID}',
+                success_url=settings.SITE_URL_FRONTEND+'mis-eventos/'+order.event.eid + '/ordenes/'+ order.oid +'/?session_id={CHECKOUT_SESSION_ID}',
+                cancel_url=settings.SITE_URL_FRONTEND+'mis-eventos/'+order.event.eid + '?session_id={CHECKOUT_SESSION_ID}',
             )
             print('final')
             
