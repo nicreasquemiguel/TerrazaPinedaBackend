@@ -127,7 +127,7 @@ class Event(models.Model):
         if self.advance and self.status == "aceptacion":
             self.status = "apartado"
         if self.advance >= self.total_price and self.status == "apartado":
-            self.status == "liquidado"
+            self.status = "liquidado"
 
         # self.rating = self.event_rating()
         
