@@ -269,10 +269,10 @@ class StripeCheckoutAPI(generics.CreateAPIView):
                             'currency': 'mxn',
                             'product_data': {
                                 'name': order.payer.get_full_name(),
-                                'description':  '#' + order.oid + 'Evento para la fecha: ' + str(event.date),
+                                'description':  order.oid + 'Evento para la fecha: ' + str(event.date),
                                 
                             },
-                            'unit_amount': float(order.total * 100),
+                            'unit_amount': round(float(order.total * 100), 2)
                         },
                         'quantity': 1,
                     }
