@@ -221,7 +221,7 @@ class StripeCheckoutAPI(generics.CreateAPIView):
 
 
         # total_tax = Decimal(0.0)
-        total_sub_total = Decimal(1000)
+        total_sub_total = Decimal(payload['subtotal'])
         # total_initial_total = Decimal(0.0)
         # total_total = Decimal(0.0)
 
@@ -269,10 +269,10 @@ class StripeCheckoutAPI(generics.CreateAPIView):
                             'currency': 'mxn',
                             'product_data': {
                                 'name': order.payer.get_full_name(),
-                                'description':  order.oid + ' para la fecha: ' + str(event.date),
+                                'description':  '#' + order.oid + 'Evento para la fecha: ' + str(event.date),
                                 
                             },
-                            'unit_amount': int(order.event.package.price * 100),
+                            'unit_amount': float(order.total * 100),
                         },
                         'quantity': 1,
                     }
