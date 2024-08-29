@@ -272,7 +272,7 @@ class StripeCheckoutAPI(generics.CreateAPIView):
                                 'description':  order.oid + 'Evento para la fecha: ' + str(event.date),
                                 
                             },
-                            'unit_amount': round(float(order.total * 100), 2),
+                            'unit_amount': event.total_price * 100,
                         },
                         'quantity': 1,
                     }
