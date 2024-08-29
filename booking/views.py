@@ -235,7 +235,7 @@ class StripeCheckoutAPI(generics.CreateAPIView):
             payer=user,
             payment_status="procesando",
             payment_type=payment_type,
-            # subtotal = total_sub_total,
+            subtotal = total_sub_total,
 
             # full_name=full_name,
             # email=email,
@@ -272,7 +272,7 @@ class StripeCheckoutAPI(generics.CreateAPIView):
                                 'description':  order.oid + 'la fecha: ' + str(event.date),
                                 
                             },
-                            'unit_amount': int(event.total_price * 100),
+                            'unit_amount': (order.total * 100),
                         },
                         'quantity': 1,
                     }
