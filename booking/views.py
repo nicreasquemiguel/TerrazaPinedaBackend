@@ -3,8 +3,8 @@ from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 import stripe.error
 from .models import Venue, Package, Event, Extra, Rule
 from users.models import UserAccount, Profile
-from store.models import Tax, Coupon, PaymentOrder
-from .serializers import VenueSerializer, PackageSerializer, EventSerializer, EventCreateSerializer, ExtraSerializer, RuleSerializer,   DatesOccupiedSerializer, CouponSerializer, PaymentOrderSerializer
+from store.models import Tax, Coupon, PaymentOrder, Review
+from .serializers import VenueSerializer, PackageSerializer, EventSerializer, EventCreateSerializer, ExtraSerializer, RuleSerializer,   DatesOccupiedSerializer, CouponSerializer, PaymentOrderSerializer, ReviewSerializer
 from rest_framework import generics
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication, BasicAuthentication
@@ -355,3 +355,14 @@ class MyEventAPIView(generics.RetrieveAPIView):
             self.check_object_permissions(self.request, obj)
             return obj
 
+
+class RatingAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ReviewSerializer
+    queryset = Review.objects.all()
+
+
+
+
+    def get_queryset(self):
+
+        return Review.objects.all().filter(user = self.request.user.id)
