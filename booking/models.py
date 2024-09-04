@@ -83,7 +83,7 @@ class Event(models.Model):
     )
  
     date = models.DateField()
-    id = models.AutoField( primary_key=True )
+    id = models.AutoField(primary_key=True )
     arrival = models.TimeField(default = ta)
     departure = models.TimeField(default = td)
     package = models.ForeignKey(Package, on_delete= models.PROTECT, related_name= "package")
@@ -122,12 +122,12 @@ class Event(models.Model):
     def save(self, *args, **kwargs):
         if self.slug == "" or self.slug == None:
             self.slug = slugify(str(self.client.id) + '-' + self.date) 
+        if self.advance:
 
-
-        if self.advance and self.status == "aceptacion":
-            self.status = "apartado"
-        if self.advance >= self.total_price and self.status == "apartado":
-            self.status = "liquidado"
+            if self.advance and self.status == "aceptacion":
+                self.status = "apartado"
+            if self.advance >= self.total_price and self.status == "apartado":
+                self.status = "liquidado"
 
         # self.rating = self.event_rating()
         
