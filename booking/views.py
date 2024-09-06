@@ -376,7 +376,7 @@ class RatingAPIView(generics.ListCreateAPIView):
         user = UserAccount.objects.get(id=user_id)
 
         if event.event_rating or event.event_review:
-            rating = event.review_set[0]
+            rating = event.review_set.all()[0]
         else:
             rating = Review()
 
