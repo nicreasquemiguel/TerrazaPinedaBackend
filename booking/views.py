@@ -383,6 +383,8 @@ class RatingAPIView(generics.ListCreateAPIView):
         rating.event = event
         rating.active = True
         rating.save()
+        return Response({"message": "Review/Rating added successfully", "review": review}, status=status.HTTP_200_OK)
+
 
     def get_queryset(self):
 
