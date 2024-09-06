@@ -365,14 +365,12 @@ class RatingAPIView(generics.ListCreateAPIView):
 
     def create(self, request, *args, **kwargs):
         payload = request.data
-        print(request.user.id)
-        print(request)
-        print(payload)
+
 
         eid = payload["event"]
         review = payload["review"]
         rating = payload["rating"]
-        user_id  = payload['user_id'] 
+        user_id  = request.user.id
 
         event = Event.objects.get(eid=eid)
         user = UserAccount.objects.get(id=user_id)
