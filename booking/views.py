@@ -366,7 +366,7 @@ class RatingAPIView(generics.RetrieveUpdateDestroyAPIView):
         print(payload)
 
         eid = payload["event"]
-        review = payload{"review"}
+        review = payload["review"]
         rating = payload["rating"]
         user_id  = payload['user_id'] 
 
