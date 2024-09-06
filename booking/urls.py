@@ -28,6 +28,7 @@ urlpatterns = [
     path('mis-eventos/', MyEventsAPIView.as_view()),
     path('reviews/', RatingAPIView.as_view()),
     path('reviews/<id>/', ReviewRetrieveViewAPI.as_view()),
+    
     path('checkout/<int:pk>', CheckoutAPIView.as_view()),
     path('coupons/<code>', CouponAPIView.as_view()),
     path('stripe-checkout/', StripeCheckoutAPI.as_view(), name='stripe-checkout'),

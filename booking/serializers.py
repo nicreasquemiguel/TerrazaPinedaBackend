@@ -155,9 +155,7 @@ class VendorSerializer(serializers.ModelSerializer):
 
 class ReviewSerializer(serializers.ModelSerializer):
     # Serialize the related Product model
-    product = EventSerializer()
-    profile = ProfileSerializer()
-    
+
     class Meta:
         model = Review
         fields = '__all__'
