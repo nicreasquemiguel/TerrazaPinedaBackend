@@ -361,7 +361,26 @@ class RatingAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
 
 
+    def create(self, request, *args, **kwargs):
+        payload = request.data
+        print(payload)
 
+        eid = payload["event"]
+        review = payload{"review"}
+        rating = payload["rating"]
+        user_id  = payload['user_id'] 
+
+        event = Event.objects.get(eid=eid)
+        user = UserAccount.objects.get(id=user_id)
+
+
+        rating = Review()
+        rating.rating = rating
+        rating.review = review
+        rating.user = user.id
+        rating.event = event.id
+        rating.active = True
+        rating.save()
 
     def get_queryset(self):
 
