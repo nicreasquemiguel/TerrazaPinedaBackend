@@ -369,7 +369,7 @@ class RatingAPIView(generics.ListCreateAPIView):
 
         eid = payload["event"]
         review = payload["review"]
-        rating = payload["rating"]
+        ratings = payload["rating"]
         user_id  = request.user.id
 
         event = Event.objects.get(eid=eid)
@@ -377,7 +377,7 @@ class RatingAPIView(generics.ListCreateAPIView):
 
 
         rating = Review()
-        rating.rating = rating
+        rating.rating = ratings
         rating.review = review
         rating.user = user
         rating.event = event
