@@ -365,6 +365,7 @@ class RatingAPIView(generics.ListCreateAPIView):
 
     def create(self, request, *args, **kwargs):
         payload = request.data
+        print(request.user)
         print(payload)
 
         eid = payload["event"]
@@ -379,8 +380,8 @@ class RatingAPIView(generics.ListCreateAPIView):
         rating = Review()
         rating.rating = rating
         rating.review = review
-        rating.user = user.id
-        rating.event = event.id
+        rating.user = user
+        rating.event = event
         rating.active = True
         rating.save()
 
