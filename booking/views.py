@@ -356,13 +356,13 @@ class MyEventAPIView(generics.RetrieveAPIView):
             return obj
 
 
-class RatingAPIView(generics.RetrieveUpdateDestroyAPIView):
+class RatingAPIView(generics.ListCreateAPIView):
     serializer_class = ReviewSerializer
     queryset = Review.objects.all()
 
     authentication_classes = (JWTAuthentication,)
     permission_classes = [AllowAny]
-    
+
     def create(self, request, *args, **kwargs):
         payload = request.data
         print(payload)
