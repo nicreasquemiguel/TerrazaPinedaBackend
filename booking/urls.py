@@ -26,7 +26,7 @@ urlpatterns = [
     path('sitios/<slug>/', VenueDetailAPIView.as_view()),
 
     path('mis-eventos/', MyEventsAPIView.as_view()),
-
+    path('reviews/', RatingAPIView.as_view()),
 
     path('checkout/<int:pk>', CheckoutAPIView.as_view()),
     path('coupons/<code>', CouponAPIView.as_view()),
