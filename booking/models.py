@@ -113,10 +113,13 @@ class Event(models.Model):
         
 
     # Calculates the average rating of the product
+    @property
     def event_rating(self):
-        from store.models import Review
-        event_rating = Review.objects.filter(event=self).aggregate(avg_rating=models.Avg('rating'))
-        return event_rating['avg_rating']
+        return self.review_set.rating
+    
+    @property
+    def event_review(self):
+        return self.review_set.review
     
 
     def save(self, *args, **kwargs):

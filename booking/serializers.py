@@ -39,8 +39,7 @@ class EventSerializer(serializers.ModelSerializer):
     # client = serializers.
     class Meta:
         model = Event
-        fields = ['date','id','arrival','departure','package','extras','client','admin','venue','created', 'modified','advance','status','rating','rating_comment','slug','payment_intent','description','total_price','eid']
-        # depth = 1
+        fields = ['date','id','arrival','departure','package','extras','client','admin','venue','created', 'modified','advance','status','rating','rating_comment','slug','payment_intent','description','total_price','eid','event_rating', 'event_review']        # depth = 1
         lookup_field = 'eid'
         extra_kwargs = {
             'url': {'lookup_field': 'eid'}

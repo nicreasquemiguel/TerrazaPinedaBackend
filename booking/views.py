@@ -375,8 +375,11 @@ class RatingAPIView(generics.ListCreateAPIView):
         event = Event.objects.get(eid=eid)
         user = UserAccount.objects.get(id=user_id)
 
+        if event.event_rating or event.event_review:
+            rating = event.review_set[0]
+        else:
+            rating = Review()
 
-        rating = Review()
         rating.rating = ratings
         rating.review = review
         rating.user = user
@@ -387,5 +390,4 @@ class RatingAPIView(generics.ListCreateAPIView):
 
 
     def get_queryset(self):
-
         return Review.objects.all().filter(user = self.request.user.id)
