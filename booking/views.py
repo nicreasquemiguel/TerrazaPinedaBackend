@@ -360,7 +360,9 @@ class RatingAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ReviewSerializer
     queryset = Review.objects.all()
 
-
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = [AllowAny]
+    
     def create(self, request, *args, **kwargs):
         payload = request.data
         print(payload)
