@@ -391,3 +391,15 @@ class RatingAPIView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         return Review.objects.all().filter(user = self.request.user.id)
+
+
+class ReviewRetrieveViewAPI(generics.RetrieveUpdateAPIView):
+    serializer_class = ReviewSerializer
+    queryset = Review.objects.all()
+
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = [AllowAny]
+
+
+    def get_queryset(self):
+        return Review.objects.all().filter(user = self.request.user.id)
