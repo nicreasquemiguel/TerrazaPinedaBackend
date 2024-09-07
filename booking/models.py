@@ -115,7 +115,7 @@ class Event(models.Model):
     # Calculates the average rating of the product
     @property
     def event_rating(self):
-        if not self.event.event_rating:
+        if not self.event_rating:
             return self.review_set.all()[0].rating
         else:
             return None
@@ -123,7 +123,7 @@ class Event(models.Model):
     
     @property
     def event_review(self):
-        if not self.event.event_review:
+        if not self.event_review:
             return self.review_set.all()[0].review   
         else:
             return None
