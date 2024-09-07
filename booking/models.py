@@ -115,15 +115,18 @@ class Event(models.Model):
     # Calculates the average rating of the product
     @property
     def event_rating(self):
-        rating = self.review_set.all()[0].rating
-        return rating if rating else None
-
+        if self.review_set.all():
+            rating = self.review_set.all()[0].rating
+            return rating
+        return  None
     
     
     @property
     def event_review(self):
-        review =  self.review_set.all()[0].review
-        return review if review else None
+        if self.review_set.all():
+            review = self.review_set.all()[0].review
+            return review
+        return  None
 
 
     def save(self, *args, **kwargs):
