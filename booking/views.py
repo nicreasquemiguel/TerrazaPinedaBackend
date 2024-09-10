@@ -52,8 +52,8 @@ class RuleListAPIView(generics.ListAPIView):
 class PackageViewSet(ModelViewSet):
     queryset = Package.objects.all()
     serializer_class = PackageSerializer
-    # authentication_classes = [JWTAuthentication]
-    # permission_classes = (AllowAny
+    authentication_classes = []
+    permission_classes = []
 
 class ExtraListAPIView(generics.ListAPIView):
     queryset = Extra.objects.all()
