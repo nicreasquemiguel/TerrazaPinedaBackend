@@ -25,7 +25,7 @@ class PaymentOrder(models.Model):
         ("transferencia", "Transferncia Bancaria"),
     )
 
-    event = models.ForeignKey(Event, on_delete=models.PROTECT, blank=True)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, blank=True)
     vendor = models.ForeignKey(UserAccount,on_delete=models.PROTECT, related_name="vendor", blank=True)
     payer = models.ForeignKey(UserAccount, on_delete=models.PROTECT, null=True, related_name="payer", blank=True)
 
