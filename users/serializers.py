@@ -12,7 +12,7 @@ User = get_user_model()
 class UserCreateSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model = User
-        fields =['id','email','first_name','last_name','phone', 'is_superuser','password']
+        fields =['id','email','first_name','last_name','phone', 'is_superuser', 'is_staff', 'password']
         authentication_classes = ['']
         permission_classes = ['']
 
