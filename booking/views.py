@@ -129,7 +129,7 @@ class EventApproveAPIView(generics.UpdateAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     permission_classes = (IsAdminUser,)
-
+    lookup_field = 'eid'
     # def update(self, request, *args, **kwargs):
     #     partial = kwargs.pop('partial', False)
     #     instance = self.get_object()
