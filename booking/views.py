@@ -4,7 +4,7 @@ import stripe.error
 from .models import Venue, Package, Event, Extra, Rule
 from users.models import UserAccount, Profile
 from store.models import Tax, Coupon, PaymentOrder, Review
-from .serializers import VenueSerializer, PackageSerializer, EventSerializer, EventCreateSerializer, ExtraSerializer, RuleSerializer,   DatesOccupiedSerializer, CouponSerializer, PaymentOrderSerializer, ReviewSerializer
+from .serializers import VenueSerializer, PackageSerializer, EventSerializer, EventCreateSerializer, ExtraSerializer, RuleSerializer,   DatesOccupiedSerializer, CouponSerializer, PaymentOrderSerializer, ReviewSerializer, EventsStatiticsAdminSerializer
 from rest_framework import generics
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication, BasicAuthentication
@@ -144,6 +144,31 @@ class EventApproveAPIView(generics.UpdateAPIView):
 
     #     return Response(serializer.data)
 
+class EventAdminStatisticsAPIView(generics.ListAPIView):
+    serializer_class = EventsStatiticsAdminSerializer
+    permission_classes = (IsAdminUser,)
+    
+    def get_queryset(self):
+        admin_id = self.get('admin')
+        admin = UserAccount.objects.get(id=admin_id)
+        today = datetime.now()
+        events_to_approve = Event.objects.get(status="solicitud").count()
+        event_count_month = Event.objects.filter(date__month = today.month, date__year = today.year ).exclude(status = "solicitud", status = "cancelado", status = "rechazado").count()
+        event_count_year = Event.objects.filter(date__year = today.year ).exclude(status = "solicitud", status = "cancelado", status = "rechazado").count()
+    
+        
+        return [{
+            "events_to_approve": events_to_approve,
+            "event_count_month": event_count_month,
+            "event_count_year" : event_count_year, 
+        }]
+    
+    def list(self):
+        queryset = self.get_queryset()
+        serializer  = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+        
+    
 
 class DatesOccupiedListAPIVIEW(generics.ListAPIView):
     

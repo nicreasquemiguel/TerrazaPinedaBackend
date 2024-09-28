@@ -81,6 +81,12 @@ class DatesOccupiedSerializer(serializers.ModelSerializer):
         fields = ['date']
         # depth = 1
 
+class EventsStatiticsAdminSerializer(serializers.Serializer):
+    events_to_approve = serializers.IntegerField()
+    event_count_month = serializers.IntegerField()
+    event_count_year = serializers.IntegerField()
+    
+    
 
             # Define a serializer for the CartOrder model
 class PaymentOrderSerializer(serializers.ModelSerializer):
