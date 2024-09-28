@@ -153,8 +153,8 @@ class EventAdminStatisticsAPIView(generics.ListAPIView):
         admin = UserAccount.objects.get(id=admin_id)
         today = datetime.now()
         events_to_approve = Event.objects.get(status="solicitud").count()
-        event_count_month = Event.objects.filter(date__month = today.month, date__year = today.year ).exclude(status = "solicitud", status = "cancelado", status = "rechazado").count()
-        event_count_year = Event.objects.filter(date__year = today.year ).exclude(status = "solicitud", status = "cancelado", status = "rechazado").count()
+        event_count_month = Event.objects.filter(date__month = today.month, date__year = today.year ).exclude(status = "solicitud").exclude( status = "cancelado").exclude(status = "rechazado").count()
+        event_count_year = Event.objects.filter(date__year = today.year ).exclude(status = "solicitud").exclude( status = "cancelado").exclude(status = "rechazado").count()
     
         
         return [{
