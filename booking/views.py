@@ -148,7 +148,7 @@ class EventAdminStatisticsAPIView(generics.ListAPIView):
     serializer_class = EventsStatiticsAdminSerializer
     permission_classes = (IsAdminUser,)
     
-    def get_queryset(self, request, *args, **kwargs):
+    def get_queryset(self):
         print(self)
         admin_id = self.get('admin')
         admin = UserAccount.objects.get(id=admin_id)
@@ -164,7 +164,7 @@ class EventAdminStatisticsAPIView(generics.ListAPIView):
             "event_count_year" : event_count_year, 
         }]
     
-    def list(self , request, *args, **kwargs):
+    def list(self):
         queryset = self.get_queryset()
         serializer  = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
