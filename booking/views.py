@@ -164,7 +164,7 @@ class EventAdminStatisticsAPIView(generics.ListAPIView):
             "event_count_year" : event_count_year, 
         }]
     
-    def list(self):
+    def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
         serializer  = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
