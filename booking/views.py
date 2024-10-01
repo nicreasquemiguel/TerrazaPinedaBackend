@@ -149,7 +149,7 @@ class EventAdminStatisticsAPIView(generics.ListAPIView):
     permission_classes = (IsAdminUser,)
     
     def get_queryset(self):
-        print(self)
+        print(self.__str__)
         admin_id = self.get('admin')
         admin = UserAccount.objects.get(id=admin_id)
         today = datetime.now()
