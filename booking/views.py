@@ -22,7 +22,7 @@ from django.db import transaction
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 class VenueListAPIView(generics.ListCreateAPIView):
@@ -141,16 +141,26 @@ class EventAdminStatisticsAPIView(generics.ListAPIView):
     
     def get_queryset(self):
         today = datetime.now()
+        lastMonth = today - timedelta(days=datetime.now().day)
+        lastYear = today - timedelta(days=datetime.now().day)
+        
         events_to_approve = Event.objects.filter(status="solicitud").count()
+
         event_count_month = Event.objects.filter(date__month = today.month, date__year = today.year ).exclude(status = "solicitud").exclude( status = "cancelado").exclude(status = "rechazado").count()
+        event_count_last_month = Event.objects.filter(date__month = lastMonth.month, date__year = lastMonth.year ).exclude(status = "solicitud").exclude( status = "cancelado").exclude(status = "rechazado").count()
+
         event_count_year = Event.objects.filter(date__year = today.year ).exclude(status = "solicitud").exclude( status = "cancelado").exclude(status = "rechazado").count()
+        event_count_last_year = Event.objects.filter(date__year = lastYear.year ).exclude(status = "solicitud").exclude( status = "cancelado").exclude(status = "rechazado").count()
+        
     
 
         
         qs = {
             "events_to_approve": events_to_approve,
             "event_count_month": event_count_month,
-            "event_count_year" : event_count_year, 
+            "event_count_last_month" : event_count_last_month,
+            "event_count_year" : event_count_year,
+            "event_count_last_year" : event_count_last_year, 
         }
         print(qs)
         
