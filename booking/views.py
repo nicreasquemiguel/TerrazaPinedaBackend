@@ -139,7 +139,7 @@ class EventAdminStatisticsAPIView(generics.ListAPIView):
     def get_queryset(self):
         print(self.__dir__())
         print(self.__str__())
-        print(vars(self))
+        print(self.queryset)
         admin_id = self.get('admin')
         admin = UserAccount.objects.get(id=admin_id)
         today = datetime.now()
