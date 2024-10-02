@@ -150,12 +150,12 @@ class EventAdminStatisticsAPIView(generics.ListAPIView):
     
         print(event_count_month)
         
-        return admin
-        # return [{
-        #     "events_to_approve": events_to_approve,
-        #     "event_count_month": event_count_month,
-        #     "event_count_year" : event_count_year, 
-        # }]
+        # return admin
+        return [{
+            "events_to_approve": events_to_approve,
+            "event_count_month": event_count_month,
+            "event_count_year" : event_count_year, 
+        }]
     
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
