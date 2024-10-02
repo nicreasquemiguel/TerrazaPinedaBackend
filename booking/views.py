@@ -150,7 +150,7 @@ class EventAdminStatisticsAPIView(generics.ListAPIView):
         event_count_last_month = Event.objects.filter(date__month = lastMonth.month, date__year = lastMonth.year ).exclude(status = "solicitud").exclude( status = "cancelado").exclude(status = "rechazado").count()
 
         event_count_year = Event.objects.filter(date__year = today.year ).exclude(status = "solicitud").exclude( status = "cancelado").exclude(status = "rechazado").count()
-        event_count_last_year = Event.objects.filter(date__year = lastYear.year ).exclude(status = "solicitud").exclude( status = "cancelado").exclude(status = "rechazado").count()
+        event_count_last_year = Event.objects.filter(date__year = today.year - 1 ).exclude(status = "solicitud").exclude( status = "cancelado").exclude(status = "rechazado").count()
         
     
 
