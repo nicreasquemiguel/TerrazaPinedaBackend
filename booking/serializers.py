@@ -85,6 +85,8 @@ class EventsStatiticsAdminSerializer(serializers.Serializer):
     events_to_approve = serializers.IntegerField()
     event_count_month = serializers.IntegerField()
     event_count_year = serializers.IntegerField()
+    event_count_last_month = serializers.IntegerField()
+    event_count_last_year = serializers.IntegerField()
     
     
 
