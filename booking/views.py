@@ -133,6 +133,7 @@ class EventApproveAPIView(generics.UpdateAPIView):
 
 
 class EventAdminStatisticsAPIView(generics.ListAPIView):
+    queryset = Event.objects.all()
     serializer_class = EventsStatiticsAdminSerializer
     permission_classes = (IsAdminUser,)
     
