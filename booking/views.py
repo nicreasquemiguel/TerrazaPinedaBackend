@@ -140,17 +140,17 @@ class EventAdminStatisticsAPIView(generics.ListAPIView):
     def get_queryset(self):
 
         # print(self.list())
-        print(self.__str__())
-        admin_id = self.get('admin')
-        admin = UserAccount.objects.get(id=admin_id)
-        today = datetime.now()
-        events_to_approve = Event.objects.filter(status="solicitud")
-        event_count_month = Event.objects.filter(date__month = today.month, date__year = today.year ).exclude(status = "solicitud").exclude( status = "cancelado").exclude(status = "rechazado").count()
-        event_count_year = Event.objects.filter(date__year = today.year ).exclude(status = "solicitud").exclude( status = "cancelado").exclude(status = "rechazado").count()
+        # print(self.__str__())
+        # # admin_id = self.get('admin')
+        admin = UserAccount.objects.get(id=1)
+        # today = datetime.now()
+        # events_to_approve = Event.objects.filter(status="solicitud")
+        # event_count_month = Event.objects.filter(date__month = today.month, date__year = today.year ).exclude(status = "solicitud").exclude( status = "cancelado").exclude(status = "rechazado").count()
+        # event_count_year = Event.objects.filter(date__year = today.year ).exclude(status = "solicitud").exclude( status = "cancelado").exclude(status = "rechazado").count()
     
-        print(event_count_month)
+        # print(event_count_month)
         
-        return events_to_approve
+        return admin
         # return [{
         #     "events_to_approve": events_to_approve,
         #     "event_count_month": event_count_month,
