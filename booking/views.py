@@ -130,30 +130,20 @@ class EventApproveAPIView(generics.UpdateAPIView):
     serializer_class = EventSerializer
     permission_classes = (IsAdminUser,)
     lookup_field = 'eid'
-    # def update(self, request, *args, **kwargs):
-    #     partial = kwargs.pop('partial', False)
-    #     instance = self.get_object()
-    #     serializer = self.get_serializer(instance, data=request.data, partial=partial)
-    #     serializer.is_valid(raise_exception=True)
-    #     self.perform_update(serializer)
 
-    #     if getattr(instance, '_prefetched_objects_cache', None):
-    #         # If 'prefetch_related' has been applied to a queryset, we need to
-    #         # forcibly invalidate the prefetch cache on the instance.
-    #         instance._prefetched_objects_cache = {}
-
-    #     return Response(serializer.data)
 
 class EventAdminStatisticsAPIView(generics.ListAPIView):
     serializer_class = EventsStatiticsAdminSerializer
     permission_classes = (IsAdminUser,)
     
     def get_queryset(self):
-        print(self.__str__)
+        for x in self:
+            print(x)
+        print(self['admin'])
         admin_id = self.get('admin')
         admin = UserAccount.objects.get(id=admin_id)
         today = datetime.now()
-        events_to_approve = Event.objects.get(status="solicitud").count()
+        events_to_approve = Event.objects.filter(status="solicitud").count()
         event_count_month = Event.objects.filter(date__month = today.month, date__year = today.year ).exclude(status = "solicitud").exclude( status = "cancelado").exclude(status = "rechazado").count()
         event_count_year = Event.objects.filter(date__year = today.year ).exclude(status = "solicitud").exclude( status = "cancelado").exclude(status = "rechazado").count()
     
