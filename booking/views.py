@@ -22,7 +22,9 @@ from django.db import transaction
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
-import datetime
+from datetime import datetime
+
+
 class VenueListAPIView(generics.ListCreateAPIView):
     queryset = Venue.objects.all()
     serializer_class = VenueSerializer
