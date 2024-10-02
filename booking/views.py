@@ -147,6 +147,7 @@ class EventAdminStatisticsAPIView(generics.ListAPIView):
         event_count_month = Event.objects.filter(date__month = today.month, date__year = today.year ).exclude(status = "solicitud").exclude( status = "cancelado").exclude(status = "rechazado").count()
         event_count_year = Event.objects.filter(date__year = today.year ).exclude(status = "solicitud").exclude( status = "cancelado").exclude(status = "rechazado").count()
     
+        print(event_count_month)
         
         return [{
             "events_to_approve": events_to_approve,
