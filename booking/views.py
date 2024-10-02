@@ -168,7 +168,7 @@ class EventAdminStatisticsAPIView(generics.ListAPIView):
 
 class DatesOccupiedListAPIVIEW(generics.ListAPIView):
     
-    queryset = Event.objects.filter(date__gte = datetime.datetime.today()).exclude( status = 'en_carrito')
+    queryset = Event.objects.filter(date__gte = datetime.today()).exclude( status = 'en_carrito')
         
     # queryset = Event.objects.all()
     serializer_class = DatesOccupiedSerializer
