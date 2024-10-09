@@ -150,12 +150,20 @@ WSGI_APPLICATION = 'terraza.wsgi.application'
 # https://docs.djangoproject.com/ef543fffnzz l,/4.0/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'terraza',
+    #     'USER': 'mixel',
+    #     'PASSWORD' : '3NsZ1ufzxQnu4uvkMmhZ',
+    #     'HOST' : 'terraza.chkkmqy4mda1.us-east-1.rds.amazonaws.com', #localcost
+    #     'PORT': '5432',
+    # }
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'terraza',
         'USER': 'mixel',
         'PASSWORD' : '3NsZ1ufzxQnu4uvkMmhZ',
-        'HOST' : 'terraza.chkkmqy4mda1.us-east-1.rds.amazonaws.com', #localcost
+        'HOST' : 'localhost', #localcost
         'PORT': '5432',
     }
 }
