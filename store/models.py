@@ -93,7 +93,7 @@ class Review(models.Model):
     def __str__(self):
         return "Review del " +  str(self.event.date)
     
-    class MetaL:
+    class Meta:
         verbose_name_plural = 'Opinión de Eventos'
 
     def profile(self):
@@ -123,20 +123,12 @@ def update_event_rating(sender, instance, **kwargs):
 #             return "Notification"
 
 class Coupon(models.Model):
-    # A foreign key relationship to the Vendor model with SET_NULL option, allowing null values, and specifying a related name
     vendor = models.ForeignKey(UserAccount, on_delete=models.SET_NULL, null=True, related_name="coupon_vendor")
-    # Many-to-many relationship with User model for users who used the coupon
     used_by = models.ManyToManyField(UserAccount, blank=True)
-    # Fields for code, type, discount, redemption, date, and more
     code = models.CharField(max_length=1000)
-    # type = models.CharField(max_length=100, choices=DISCOUNT_TYPE, default="Percentage")
     discount = models.IntegerField(default=1)
-    # redemption = models.IntegerField(default=0)
     date = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
-    # make_public = models.BooleanField(default=False)
-    # valid_from = models.DateField()
-    # valid_to = models.DateField()
     # ShortUUID field
     cid = ShortUUIDField(length=10, max_length=25, alphabet="abcdefghijklmnopqrstuvxyz")
     
@@ -146,7 +138,7 @@ class Coupon(models.Model):
         self.get_percent = new_discount
         super(Coupon, self).save(*args, **kwargs) 
     
-    # Method to return a string representation of the object
+
     def __str__(self):
         return self.code
     
@@ -155,7 +147,6 @@ class Coupon(models.Model):
 
 
 
-# import booking.models  as bookingf
 class Tax(models.Model):
     country = models.CharField(max_length=255)
     rate = models.IntegerField(default=5, help_text="En porcentajes 5%")

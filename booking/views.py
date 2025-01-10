@@ -189,31 +189,6 @@ class EventDetailAPIView(generics.RetrieveAPIView):
     serializer_class = EventSerializer
  
 
-
-# class CartAddAPIView(generics.ListCreateAPIView):
-#     queryset =  Cart.objects.all()
-#     serializer_class = CartSerializer
-#     permission_classes = []
-
-#     def create(self, request, *args, **kwargs):
-#         payload = request.data
-#         event_id  =  payload['event_id']
-#         country = payload['client']    
-#         cart_id = payload['cart_id']
-#         user_id = payload['client']
-#         extras  = payload['extras']
-        
-
-#         event = Event.objects.get(id=event_id)
-#         user  = UserAccount.objects.get(id=user_id)
-#         if user_id != 'undefined':
-#             user  = UserAccount.objects.get(id=user_id)
-#         else:
-#             user = None 
-        
-#         tax = Tax.objects.filter(country=country).first()
-
-#         return super().create(request, *args, **kwargs)
     
 
 

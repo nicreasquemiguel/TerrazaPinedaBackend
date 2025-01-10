@@ -64,18 +64,16 @@ CSRF_TRUSTED_ORIGINS = [ "http://0.0.0.0", "http://localhost", "http://127.0.0.1
 SECURE_CROSS_ORIGIN_OPENER_POLICY = 'None'
 
 
-# USE_X_FORWARDED_HOST = True
-# SECURE_PROXY_SSL_HEADER = ('X-FORWARDED-PROTO', 'https')
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
 
-# SECURE_CONTENT_TYPE_NOSNIFF = True
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 # SECURE_HSTS_PRELOAD = True
-SECURE_SSL_REDIRECT = False
+# SECURE_SSL_REDIRECT = False
 
-SESSION_COOKIE_SECURE=False
-CSRF_COOKIE_SECURE=False
+# SESSION_COOKIE_SECURE=False
+# CSRF_COOKIE_SECURE=False
+    
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
 
 
 INSTALLED_APPS = [
@@ -154,28 +152,18 @@ WSGI_APPLICATION = 'terraza.wsgi.application'
 # https://docs.djangoproject.com/ef543fffnzz l,/4.0/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'terraza',
-    #     'USER': 'mixel',
-    #     'PASSWORD' : '3NsZ1ufzxQnu4uvkMmhZ',
-    #     'HOST' : 'terraza.chkkmqy4mda1.us-east-1.rds.amazonaws.com', #localcost
-    #     'PORT': '5432',
-    # }
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'terraza',
         'USER': 'mixel',
         'PASSWORD' : '3NsZ1ufzxQnu4uvkMmhZ',
-        'HOST' : 'localhost', #localcost
+        'HOST' : 'localhost', 
         'PORT': '5432',
     }
 }
 
 
-#EMAIL
-# Email : terrazapineda07@gmail.com
-# password : pptqitvhjgjvhoxt
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
