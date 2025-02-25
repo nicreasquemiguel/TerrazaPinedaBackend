@@ -17,11 +17,14 @@ from environs import Env
 from datetime import timedelta
 
 
+
 env = Env()
 env.read_env()
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 SITE_URL = env("SITE_URL")
 
@@ -84,6 +87,7 @@ SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
 # secrets_manager = session.client('secretsmanager')
 # Application definition
 
+
 INSTALLED_APPS = [
     #custom admin
     'jazzmin',
@@ -94,6 +98,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+
     #Internal apps
     'booking',
     'users',
@@ -111,13 +117,13 @@ INSTALLED_APPS = [
     'shortuuid.django_fields',
     'drf_yasg',
     'rest_framework_swagger',
-    
+
     
 ]
 
 MIDDLEWARE = [
-    'social_django.middleware.SocialAuthExceptionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -167,14 +173,15 @@ DATABASES = {
 }
 
 
-#EMAIL
-# Email : terrazapineda07@gmail.com
-# password : pptqitvhjgjvhoxt
+
+
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'terrazapineda7@gmail.com'
-EMAIL_HOST_PASSWORD = 'pptqitvhjgjvhoxt'
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+
 EMAIL_USE_TLS = True
 
 
@@ -190,11 +197,13 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema', 
 }
 
-DOMAIN = 'localhost:5173' #localhost
+
+DOMAIN =  env("DOMAIN")
 
 
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = True
+
 
 #DJOSER
 DJOSER = {
@@ -230,11 +239,18 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'email, first_name, last_name'
 }
 
+
 STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY")
 STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
 
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=360),
+
     'REFRESH_TOKEN_LIFETIME': timedelta(days=50),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
