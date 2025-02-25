@@ -12,22 +12,21 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
-
-from decouple import config
-
+import boto3
 from environs import Env
 from datetime import timedelta
 
 
 
+env = Env()
+env.read_env()
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SITE_URL = config('SITE_URL')
-STRIPE_PUBLIC_KEY ="pk_test_51LUzLpAyaVFmKoiDa8pAoBrJbvWAi953aAOXWPwz7oSt4hSjuiohV65VDFvKcJ0A8P2ylR4GCZ4CV8jdHLlVjjq600HLTe60t4"
-STRIPE_SECRET_KEY="sk_test_51LUzLpAyaVFmKoiDJXVHDyRoG1WjaAzVK4dVlaFtbz4Obbi6ptU5LHRhMhs9zf01SJEvjeA7Bs6sLSFsDdvSXdJS00EADny2I1"
-SITE_URL="http://52.90.173.244:8000/"
-SITE_URL_FRONTEND="http://localhost:5173/"
+
+SITE_URL = env("SITE_URL")
 
 
 # Quick-start development settings - unsuitable for production
@@ -40,40 +39,61 @@ SECRET_KEY = 'django-insecure-#d9cu$k5cfwsos9ou=p%p_6d-m52khr137%x8_y2i90)da623d
 DEBUG = True
 
 ALLOWED_HOSTS=['*']
-
-
-
 CORS_ALLOW_HEADERS = "*"
-CORS_ALLOW_CREDENTIALS = False
-CORS_ORIGIN_WHITELIST = (
 
+<<<<<<< HEAD
     'http://localhost:5173',
     'http://192.168.100.15:5173',
 
 )
 CORS_ORIGIN_ALLOW_ALL = True
+=======
+
+>>>>>>> 0898dada7bea7b747e3e3ebff809b09ce257ed42
 CORS_ALLOWED_ORIGINS = [
-    "http://52.90.173.244:8000",
-    "http://192.168.100.15:5173",
     "http://localhost:8000",
     "http://localhost:5173",
 ]
-# CSRF_TRUSTED_ORIGINS = [ "*" ]
-CSRF_TRUSTED_ORIGINS = [ "http://0.0.0.0", "http://localhost", "http://127.0.0.1","http://52.90.173.244" ]
 
-SECURE_CROSS_ORIGIN_OPENER_POLICY = 'None'
+CORS_ALLOW_METHODS = (
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+)
 
 
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_ALL_ORIGINS = True
 
 
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = False
 
-SESSION_COOKIE_SECURE=False
-CSRF_COOKIE_SECURE=False
-    
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
-# SECURE_SSL_REDIRECT = True
+
+CORS_ALLOW_CREDENTIALS = True
+# CSRF_TRUSTED_ORIGINS = [ "*" ]
+CSRF_TRUSTED_ORIGINS = [ "http://0.0.0.0", "http://localhost", "http://192.168.100.15", "http://127.0.0.1","http://100.28.126.133" ]
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
+
+
+# AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+# AWS_REGION = os.environ.get('AWS_REGION')
+
+
+# session = boto3.Session(
+#     aws_access_key_id=AWS_ACCESS_KEY_ID,
+#     aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+#     region_name=AWS_REGION
+# )
+
+# secrets_manager = session.client('secretsmanager')
+# Application definition
 
 
 INSTALLED_APPS = [
@@ -86,8 +106,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_extensions',
-    
+
+
     #Internal apps
     'booking',
     'users',
@@ -106,14 +126,16 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework_swagger',
 
+<<<<<<< HEAD
     'mercadopago',
+=======
+>>>>>>> 0898dada7bea7b747e3e3ebff809b09ce257ed42
     
 ]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
-
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -168,18 +190,30 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'terraza',
         'USER': 'mixel',
+<<<<<<< HEAD
         'PASSWORD' : 'Terraza.123',
         'HOST' : 'terraza-db.chkkmqy4mda1.us-east-1.rds.amazonaws.com', 
+=======
+        'PASSWORD' : '3NsZ1ufzxQnu4uvkMmhZ',
+        'HOST' : 'database-1.czm88mqccmno.us-east-1.rds.amazonaws.com', #localcost
+>>>>>>> 0898dada7bea7b747e3e3ebff809b09ce257ed42
         'PORT': '5432',
     }
 }
 
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 0898dada7bea7b747e3e3ebff809b09ce257ed42
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'terrazapineda7@gmail.com'
-EMAIL_HOST_PASSWORD = 'Terraza-123'
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+
 EMAIL_USE_TLS = True
 
 
@@ -198,8 +232,12 @@ REST_FRAMEWORK = {
 
 }
 
-DOMAIN = 'http://192.168.100.15:5173' #localhost
 
+DOMAIN =  env("DOMAIN")
+
+
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = True
 
 
 #DJOSER
@@ -236,14 +274,22 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'email, first_name, last_name'
 }
 
-# STRIPE_PUBLIC_KEY = config("STRIPE_PUBLIC_KEY")
-# STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
+
+STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY")
+STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
+
+
 
 
 
 
 SIMPLE_JWT = {
+<<<<<<< HEAD
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+=======
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=360),
+
+>>>>>>> 0898dada7bea7b747e3e3ebff809b09ce257ed42
     'REFRESH_TOKEN_LIFETIME': timedelta(days=50),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
