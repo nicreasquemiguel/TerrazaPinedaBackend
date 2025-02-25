@@ -51,7 +51,7 @@ CORS_ORIGIN_WHITELIST = (
     'http://192.168.100.15:5173',
 
 )
-
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOWED_ORIGINS = [
     "http://52.90.173.244:8000",
     "http://192.168.100.15:5173",
@@ -106,7 +106,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework_swagger',
 
-    
+    'mercadopago',
     
 ]
 
@@ -151,17 +151,28 @@ WSGI_APPLICATION = 'terraza.wsgi.application'
 # Database
 # https://docs.djangoproject.com/ef543fffnzz l,/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'terraza',
+#         'USER': 'mixel',
+#         'PASSWORD' : '3NsZ1ufzxQnu4uvkMmhZ',
+#         'HOST' : 'localhost', 
+#         'PORT': '5432',
+#     }
+# }
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'terraza',
         'USER': 'mixel',
-        'PASSWORD' : '3NsZ1ufzxQnu4uvkMmhZ',
-        'HOST' : 'localhost', 
+        'PASSWORD' : 'Terraza.123',
+        'HOST' : 'terraza-db.chkkmqy4mda1.us-east-1.rds.amazonaws.com', 
         'PORT': '5432',
     }
 }
-
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -182,6 +193,9 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ),
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema', 
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 5
+
 }
 
 DOMAIN = 'http://192.168.100.15:5173' #localhost
@@ -203,7 +217,7 @@ DJOSER = {
        'user': 'users.serializers.UserCreateSerializer',
        'user_delete': 'users.serializers.UserDeleteSerializer',
        'current_user': 'users.serializers.UserCreateSerializer',
-
+ 
    }
    
 }
@@ -225,11 +239,11 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 # STRIPE_PUBLIC_KEY = config("STRIPE_PUBLIC_KEY")
 # STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
 
-CORS_ORIGIN_ALLOW_ALL = True
+
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=360),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=50),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,

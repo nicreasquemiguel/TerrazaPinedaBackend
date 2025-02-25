@@ -21,7 +21,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     user = UserCreateSerializer()
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = ['user', 'image', 'gender', 'country', 'state', 'address', 'date', 'pid', 'full_name', 'total_events','upcoming']
 
     def to_representation(self, instance):
         response = super().to_representation(instance)

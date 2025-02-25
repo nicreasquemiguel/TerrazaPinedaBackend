@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models  import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from datetime import datetime, timedelta, time
+
 
 from shortuuid.django_fields import ShortUUIDField
 from django.db.models.signals import post_save
@@ -57,7 +59,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
 class Profile(models.Model):
     user = models.OneToOneField(UserAccount, on_delete=models.CASCADE)
     image = models.FileField(upload_to="image", default="default/default_user.jpg", null=True, blank=True)
-    full_name = models.CharField(max_length=100, null=True, blank=True)
+
     gender = models.CharField(max_length=100, null=True, blank=True)
     country = models.CharField(max_length=100, null=True, blank=True)
     state = models.CharField(max_length=100, null=True, blank=True)
@@ -70,6 +72,24 @@ class Profile(models.Model):
             return self.full_name
         else:
             return str(self.user.email)
+
+    @property
+    def full_name(self):
+        return self.user.first_name + " " + self.user.last_name
+
+    @property
+    def total_events(self):
+        user_id = self.user.id
+        total = UserAccount.objects.filter(client__client__id=user_id).count()
+        return total
+
+    @property
+    def upcoming(self):
+        user_id = self.user.id
+        today = datetime.now().date()
+        total = UserAccount.objects.filter(client__client__id=user_id, client__date__gt = today).count()
+        return total
+        
         
 
 def create_user_profile(sender, instance, created, **kwargs):

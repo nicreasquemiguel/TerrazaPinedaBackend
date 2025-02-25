@@ -21,8 +21,8 @@ urlpatterns = [
     path('add-event/', EventCreateApiView.as_view()),
     path('approve/<eid>/', EventApproveAPIView.as_view()),
     path('eventos/ocupados/', DatesOccupiedListAPIVIEW.as_view()),
-    path('eventos/<eid>', MyEventAPIView.as_view()),
     path('eventos/stats/', EventAdminStatisticsAPIView.as_view()),  
+    path('eventos/<eid>/', MyEventAPIView.as_view()),
     path('user/profile/<user_id>/', ProfileView.as_view(), name='user_profile'),
     path('rules/', RuleListAPIView.as_view(), name='rules'),
     path('sitios-activos', VenueActiveListAPIView.as_view()),
@@ -33,8 +33,10 @@ urlpatterns = [
     path('reviews/<id>/', ReviewRetrieveViewAPI.as_view()),
     
     path('checkout/<int:pk>', CheckoutAPIView.as_view()),
-    path('coupons/<code>', CouponAPIView.as_view()),
+    path('coupons/<code>/', CouponAPIView.as_view()),
     path('stripe-checkout/', StripeCheckoutAPI.as_view(), name='stripe-checkout'),
+    path('mercadopago-preference/', MercadoPagoPreferenceAPIView.as_view(), name='mercadopago-preference'),
+    path('mercadopago-notification/', MercadoPagoNotificationAPIView.as_view(), name="mercadopago-notification" ),
     path('pago-exitoso/<oid>/', PaymentSuccessView.as_view(), name='payment-success'),
 
 ]

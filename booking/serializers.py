@@ -98,16 +98,16 @@ class PaymentOrderSerializer(serializers.ModelSerializer):
         model = PaymentOrder
         fields = '__all__'
 
-    def update(self, instance, validated_data):
-        # payment_status = validated_data.pop('payment_status')
-        # ps_obj = CartOrder.objects.filter(payment_status=payment_status).first()
-        # if ps_obj:
-        #     instance.payment_status = ps_obj
-        # if instance.linked == False:
-        print(instance)
+    # def update(self, instance, validated_data):
+    #     # payment_status = validated_data.pop('payment_status')
+    #     # ps_obj = CartOrder.objects.filter(payment_status=payment_status).first()
+    #     # if ps_obj:
+    #     #     instance.payment_status = ps_obj
+    #     # if instance.linked == False:
+
   
-        instance.payment_status = 'pagado'
-        return super().update(instance, validated_data)
+    #     instance.payment_status = 'pagado'
+    #     return super().update(instance, validated_data)
 
     def __init__(self, *args, **kwargs):
         super(PaymentOrderSerializer, self).__init__(*args, **kwargs)
@@ -167,6 +167,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = '__all__'
+        
 
     def __init__(self, *args, **kwargs):
         super(ReviewSerializer, self).__init__(*args, **kwargs)

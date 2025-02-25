@@ -15,11 +15,15 @@ import json
 from django.forms.models import model_to_dict
 from django.conf import settings
 import stripe
+import mercadopago
 from decimal import Decimal
 from django.db import transaction
+from rest_framework.filters import OrderingFilter
+import requests
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
+
 
 
 from datetime import datetime, timedelta
@@ -96,10 +100,10 @@ class EventCreateApiView(generics.CreateAPIView):
         package = Package.objects.get(n_people=people)
         venue = Venue.objects.get(id=venue_id)
 
-        extrasList = []
+        extrasList = extras
 
-        for extra in extras:
-            extrasList.append(extra['id'])
+        # for extra in extras:
+        #     extrasList.append(extra['id'])
 
         event = Event()
         event.date = date
@@ -125,7 +129,8 @@ class EventListAPIView(generics.ListAPIView):
     serializer_class = EventSerializer
     authentication_classes = (JWTAuthentication,)
     permission_classes = [AllowAny]
-
+    filter_backends = [OrderingFilter]
+    ordering_fields = ('-date',)
 
 class EventApproveAPIView(generics.UpdateAPIView):
     queryset = Event.objects.all()
@@ -175,13 +180,14 @@ class EventAdminStatisticsAPIView(generics.ListAPIView):
 
 class DatesOccupiedListAPIVIEW(generics.ListAPIView):
     
-    queryset = Event.objects.filter(date__gte = datetime.today()).exclude( status = 'en_carrito')
+    queryset = Event.objects.filter(date__gte = datetime.today()).exclude( status = 'en_carrito').order_by("-date")
         
-    # queryset = Event.objects.all()
+
     serializer_class = DatesOccupiedSerializer
     authentication_classes = []
     permission_classes = []
-
+    filter_backends = [OrderingFilter]
+    ordering_fields = ('date',)
 
 class EventDetailAPIView(generics.RetrieveAPIView):
         
@@ -235,7 +241,7 @@ class StripeCheckoutAPI(generics.CreateAPIView):
         print("user_id ===============", user_id)
         print(payload)
         
-        event = Event.objects.get(id=event_id)
+        event = Event.objects.get(eid=event_id)
         user = UserAccount.objects.get(id=user_id)
 
 
@@ -317,6 +323,129 @@ class StripeCheckoutAPI(generics.CreateAPIView):
             return Response( {'error': f'Something went wrong when creating stripe checkout session: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+class MercadoPagoPreferenceAPIView(generics.CreateAPIView):
+    serializer_class = PaymentOrder
+    queryset = PaymentOrder.objects.all()
+    authentication_classes = []
+    permission_classes = []
+    
+    def create(self, request, *args, **kwargs):
+        payload = request.data
+        print(payload)
+        user_id = payload['client']
+        event_id = payload['event_id']
+        amount = payload['amount']
+        print("user_id ===============", user_id)
+        # data = payload["preference"]
+        
+        event = Event.objects.get(eid=event_id)
+        user = UserAccount.objects.get(id=user_id)
+        profile = Profile.objects.get(user=user)
+        
+        order = PaymentOrder.objects.create(
+            # sub_total=total_sub_total,
+            # shipping_amount=total_shipping,
+            # tax_fee=total_tax,
+            # service_fee=total_service_fee,
+            payer=user,
+            payment_status="procesando",
+            payment_type="mercardo pago",
+            subtotal = amount,
+            # total = amount,
+            # full_name=full_name,
+            # email=email,
+            # phone=phone,
+
+            event=event,
+            # buyer=user_id,
+            vendor=user,
+        #     address=address,
+        #     city=city,
+        #     state=state,
+        #     country=country
+        )
+
+        order.save()           
+        # print(order)
+        
+        # Cria um item na preferência
+        sdk = mercadopago.SDK("APP_USR-7194175847720608-021323-720c41d4b9017b1a3bcbf6499031f4d1-2266310629")
+
+        preference_data = {
+        "items": [
+            {
+            "id": f'EID-{event.eid}',
+            "title": f'Pago del evento: {event.date}',
+            "description": f'Adelanto para el evento del {event.date}',
+            "category_id": "car_electronics",
+            "quantity": 1,
+            "currency_id": "MXN",
+            "unit_price": amount
+            }
+        ],
+        "payer": {
+            "name": user.first_name,
+            "surname": user.last_name,
+            "email": user.email,
+            "phone": {
+                "area_code": "52",
+                "number": user.phone
+            }
+
+        },
+
+        "back_urls": {
+            "success": f'http://localhost:5173/mis-eventos/{event.eid}/ordenes/{order.oid}/',
+            "pending": f'http://localhost:5173/mis-eventos/{event.eid}/',
+            "failure": f'http://localhost:5173/mis-eventos/{event.eid}/',
+
+        # "notification_url": "https://www.your-site.com/ipn",
+        "statement_descriptor": "TERRAZAPINEDA",
+        "external_reference": f'Reference_{order.oid}',
+        "expires": True,
+
+        "metadata": None
+        }
+        }
+        
+
+        
+        
+
+        preference_response = sdk.preference().create(preference_data)
+        # print(preference_response)
+        preference = preference_response["response"]
+        # print(preference)
+        return Response({"preference":preference}, status=200)
+
+
+class MercadoPagoNotificationAPIView(generics.CreateAPIView):
+    serializer_class = PaymentOrder
+    queryset = PaymentOrder.objects.all()
+    authentication_classes = []
+    permission_classes = []
+    
+    def create(self, request, *args, **kwargs):
+        payload = request.data
+        print(payload['orderID'])
+        print(request)
+        # Cria um item na preferência
+        sdk = mercadopago.SDK("APP_USR-7194175847720608-021323-720c41d4b9017b1a3bcbf6499031f4d1-2266310629")
+        # order = sdk.merchant_order().get(merchan_order_id=payload["mercadoID"])
+        # print(order)
+        order = PaymentOrder.objects.get(oid=payload['orderID'])
+        
+        headers = {"Authorization": f'Bearer APP_USR-7194175847720608-021323-720c41d4b9017b1a3bcbf6499031f4d1-2266310629'}
+        res = requests.get(f'https://api.mercadopago.com/merchant_orders/{payload["mercadoID"]}', headers=headers) 
+        res_dict = res.json()
+        # print(res_dict)
+        print(res_dict["status"])
+        if(res_dict["status"] == "closed"):
+            order.payment_status = "pagado"
+            order.save()
+        
+        return Response({"Orden pagada por medio de Mercado Pago"}, status=200)
+    
 class PaymentSuccessView(generics.RetrieveUpdateAPIView):
     serializer_class = PaymentOrderSerializer
     queryset = PaymentOrder.objects.all()
@@ -324,6 +453,18 @@ class PaymentSuccessView(generics.RetrieveUpdateAPIView):
 
     permission_classes = [AllowAny]
     authentication_classes = []
+    
+        
+    def patch(self, request, *args, **kwargs):
+
+        payload = request.data
+        order = PaymentOrder.objects.get(oid=payload["oid"])
+
+        request.get()
+        order.payment_status 
+
+
+        return Response({"message": "Profile changed successfully"}, status=status.HTTP_200_OK)
  
 
 class OrdersView(ModelViewSet):
@@ -355,6 +496,7 @@ class OrdersView(ModelViewSet):
 class MyEventsAPIView(generics.ListAPIView):
     serializer_class = EventSerializer
     queryset = Event.objects.all()
+    ordering_fields = ['-date']
 
 
     def get_queryset(self):
@@ -364,14 +506,12 @@ class MyEventsAPIView(generics.ListAPIView):
 
 class MyEventAPIView(generics.RetrieveAPIView):
     serializer_class = EventSerializer
-    # queryset = Event.objects.all()
     lookup_field = 'eid'
     
-    # def get(self, request, *args, **kwargs):
-    #     return self.retrieve(request, *args, **kwargs)
+
 
     def get_object(self):
-
+        print(self.kwargs)
         obj = Event.objects.get(eid = self.kwargs['eid'])
         if obj.client == self.request.user:
             self.check_object_permissions(self.request, obj)
@@ -384,7 +524,7 @@ class RatingAPIView(generics.ListCreateAPIView):
 
     authentication_classes = (JWTAuthentication,)
     permission_classes = [AllowAny]
-
+    
     def create(self, request, *args, **kwargs):
         payload = request.data
 
