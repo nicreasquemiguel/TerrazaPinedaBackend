@@ -25,6 +25,8 @@ from environs import Env
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
+env = Env().read_env()
+
 
 from datetime import datetime, timedelta
 
@@ -369,7 +371,7 @@ class MercadoPagoPreferenceAPIView(generics.CreateAPIView):
         # print(order)
         
         # Cria um item na preferência
-        sdk = mercadopago.SDK("APP_USR-7194175847720608-021323-720c41d4b9017b1a3bcbf6499031f4d1-2266310629")
+        sdk = mercadopago.SDK(env("MERCADO_ACCESS_KEY"))
 
         preference_data = {
         "items": [
@@ -430,12 +432,12 @@ class MercadoPagoNotificationAPIView(generics.CreateAPIView):
         print(payload['orderID'])
         print(request)
         # Cria um item na preferência
-        sdk = mercadopago.SDK("APP_USR-7194175847720608-021323-720c41d4b9017b1a3bcbf6499031f4d1-2266310629")
+        sdk = mercadopago.SDK(env("MERCADO_ACCESS_KEY"))
         # order = sdk.merchant_order().get(merchan_order_id=payload["mercadoID"])
         # print(order)
         order = PaymentOrder.objects.get(oid=payload['orderID'])
         
-        headers = {"Authorization": f'Bearer APP_USR-7194175847720608-021323-720c41d4b9017b1a3bcbf6499031f4d1-2266310629'}
+        headers = {"Authorization": f'Bearer {env("MERCADO_ACCESS_KEY")}'}
         res = requests.get(f'https://api.mercadopago.com/merchant_orders/{payload["mercadoID"]}', headers=headers) 
         res_dict = res.json()
         # print(res_dict)

@@ -18,8 +18,8 @@ from datetime import timedelta
 
 
 
-env = Env()
-env.read_env()
+env = Env().read_env()
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,15 +41,14 @@ DEBUG = True
 ALLOWED_HOSTS=['*']
 CORS_ALLOW_HEADERS = "*"
 
-<<<<<<< HEAD
-    'http://localhost:5173',
-    'http://192.168.100.15:5173',
 
-)
+#     'http://localhost:5173',
+#     'http://192.168.100.15:5173',
+
+# )
+
 CORS_ORIGIN_ALLOW_ALL = True
-=======
 
->>>>>>> 0898dada7bea7b747e3e3ebff809b09ce257ed42
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
     "http://localhost:5173",
