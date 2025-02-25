@@ -126,10 +126,6 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework_swagger',
 
-<<<<<<< HEAD
-    'mercadopago',
-=======
->>>>>>> 0898dada7bea7b747e3e3ebff809b09ce257ed42
     
 ]
 
@@ -188,26 +184,15 @@ WSGI_APPLICATION = 'terraza.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'terraza',
-        'USER': 'mixel',
-<<<<<<< HEAD
-        'PASSWORD' : 'Terraza.123',
-        'HOST' : 'terraza-db.chkkmqy4mda1.us-east-1.rds.amazonaws.com', 
-=======
-        'PASSWORD' : '3NsZ1ufzxQnu4uvkMmhZ',
-        'HOST' : 'database-1.czm88mqccmno.us-east-1.rds.amazonaws.com', #localcost
->>>>>>> 0898dada7bea7b747e3e3ebff809b09ce257ed42
+        'NAME': env("AWS_DB_NAME"),
+        'USER': env("AWS_DB_USER"),
+        'PASSWORD' : env("AWS_DB_PASSWORD"),
+        'HOST' : env("AWS_DB_HOST"),
         'PORT': '5432',
     }
 }
 
 
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 0898dada7bea7b747e3e3ebff809b09ce257ed42
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -284,12 +269,9 @@ STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
 
 
 SIMPLE_JWT = {
-<<<<<<< HEAD
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
-=======
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=360),
 
->>>>>>> 0898dada7bea7b747e3e3ebff809b09ce257ed42
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+
     'REFRESH_TOKEN_LIFETIME': timedelta(days=50),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
