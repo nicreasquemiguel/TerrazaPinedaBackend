@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from .serializers import ProfileSerializer
 from .models import UserAccount, Profile
 
-# Create your views here.
+
 class ProfileView(generics.RetrieveUpdateAPIView):
     permission_classes = (AllowAny,)
     serializer_class = ProfileSerializer

@@ -17,15 +17,18 @@ from django.conf import settings
 import stripe
 import mercadopago
 from decimal import Decimal
-from django.db import transaction
 from rest_framework.filters import OrderingFilter
 import requests
+from django_filters.rest_framework import DjangoFilterBackend
+
+
 
 from environs import Env 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
-env = Env().read_env()
+env = Env()
+env.read_env()
 
 
 from datetime import datetime, timedelta
@@ -49,48 +52,47 @@ class VenueDetailAPIView(generics.RetrieveAPIView):
     queryset = Venue.objects.all()
     serializer_class = VenueSerializer
     lookup_field = 'slug'
+    
     authentication_classes = []
     permission_classes = []
 
 class RuleListAPIView(generics.ListAPIView):
     queryset = Rule.objects.all()
     serializer_class = RuleSerializer
+    
     permission_classes = []
 
 class PackageViewSet(ModelViewSet):
     queryset = Package.objects.all()
     serializer_class = PackageSerializer
+    
     authentication_classes = []
     permission_classes = []
 
 class ExtraListAPIView(generics.ListAPIView):
     queryset = Extra.objects.all()
     serializer_class = ExtraSerializer
+    
     authentication_classes = []
     permission_classes = []
     
 
 class EventCreateApiView(generics.CreateAPIView):
-
     serializer_class = EventCreateSerializer
+    
     authentication_classes = []
     permission_classes = []
     
     
     def create(self, request, *args, **kwargs):
         payload = request.data
-
-        print(payload)
         user_id  = payload['user_id'] 
         
-        #Add default
         admin_id = 1
         venue_id = 1
 
-        advance = 1000
-
-
         date  = payload['date']
+        
         #Get package from people 
         people  = payload['people']
         description  = payload['description']
@@ -103,10 +105,7 @@ class EventCreateApiView(generics.CreateAPIView):
         venue = Venue.objects.get(id=venue_id)
 
         extrasList = extras
-
-        # for extra in extras:
-        #     extrasList.append(extra['id'])
-
+ 
         event = Event()
         event.date = date
         event.package = package
@@ -114,8 +113,6 @@ class EventCreateApiView(generics.CreateAPIView):
         event.description = description
         event.admin = admin
         event.venue = venue
-
-  
         event.save()
 
         event.extras.add(*extrasList)
@@ -181,9 +178,7 @@ class EventAdminStatisticsAPIView(generics.ListAPIView):
     
 
 class DatesOccupiedListAPIVIEW(generics.ListAPIView):
-    
     queryset = Event.objects.filter(date__gte = datetime.today()).exclude( status = 'en_carrito').order_by("-date")
-        
 
     serializer_class = DatesOccupiedSerializer
     authentication_classes = []
@@ -196,8 +191,6 @@ class EventDetailAPIView(generics.RetrieveAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
  
-
-    
 
 
 class CheckoutAPIView(generics.RetrieveAPIView):
@@ -224,72 +217,32 @@ class StripeCheckoutAPI(generics.CreateAPIView):
     
     def create(self, request, *args, **kwargs):
         payload = request.data
-        print(payload)
-
-        # full_name = payload['full_name']
-        # email = payload['email']
-        # phone = payload['phone']
         event_id = payload['event_id']
         payment_type = 'stripe'
-        # address = payload['address']
-        # city = payload['city']
-        # state = payload['state']
-        # country = payload['country']
-
         user_id = payload['client']
-
-        # user = UserAccount.objects.get(id=user_id)
-
-        print("user_id ===============", user_id)
-        print(payload)
-        
         event = Event.objects.get(eid=event_id)
         user = UserAccount.objects.get(id=user_id)
 
-
-
-
-
-        # total_tax = Decimal(0.0)
         total_sub_total = Decimal(payload['subtotal'])
-        # total_initial_total = Decimal(0.0)
-        # total_total = Decimal(0.0)
-
-        
 
         order = PaymentOrder.objects.create(
-            # sub_total=total_sub_total,
-            # shipping_amount=total_shipping,
-            # tax_fee=total_tax,
-            # service_fee=total_service_fee,
             payer=user,
             payment_status="procesando",
             payment_type=payment_type,
             subtotal = total_sub_total,
 
-            # full_name=full_name,
-            # email=email,
-            # phone=phone,
-
             event=event,
-            # buyer=user_id,
             vendor=user,
-        #     address=address,
-        #     city=city,
-        #     state=state,
-        #     country=country
         )
 
         order.save()           
-        print(order)
-        
+
         
         if not order:
             return Response({'error': 'Order not found'}, status=status.HTTP_404_NOT_FOUND)
 
 
         try:
-            print('sttrrip')
             checkout_session = stripe.checkout.Session.create(
                 customer_email=order.payer.email,
                 payment_method_types=['card'],
@@ -311,15 +264,11 @@ class StripeCheckoutAPI(generics.CreateAPIView):
                 success_url=settings.SITE_URL_FRONTEND+'mis-eventos/'+order.event.eid + '/ordenes/'+ order.oid +'/?session_id={CHECKOUT_SESSION_ID}',
                 cancel_url=settings.SITE_URL_FRONTEND+'mis-eventos/'+order.event.eid + '?session_id={CHECKOUT_SESSION_ID}',
             )
-            print('final')
+
             
             order.stripe_session_id = checkout_session['id']
             order.save()
 
-            # print(order.stripe_session_id)
-            # print( checkout_session['id'])
-            # print( checkout_session.url)
-            # return redirect(checkout_session['url'])
             return Response({'url': checkout_session['url']}, status=200)
         except stripe.error.StripeError as e:
             return Response( {'error': f'Something went wrong when creating stripe checkout session: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -333,44 +282,27 @@ class MercadoPagoPreferenceAPIView(generics.CreateAPIView):
     
     def create(self, request, *args, **kwargs):
         payload = request.data
-        print(payload)
         user_id = payload['client']
         event_id = payload['event_id']
         amount = payload['amount']
-        print("user_id ===============", user_id)
-        # data = payload["preference"]
-        
+
+
         event = Event.objects.get(eid=event_id)
         user = UserAccount.objects.get(id=user_id)
         profile = Profile.objects.get(user=user)
         
         order = PaymentOrder.objects.create(
-            # sub_total=total_sub_total,
-            # shipping_amount=total_shipping,
-            # tax_fee=total_tax,
-            # service_fee=total_service_fee,
             payer=user,
             payment_status="procesando",
             payment_type="mercardo pago",
             subtotal = amount,
-            # total = amount,
-            # full_name=full_name,
-            # email=email,
-            # phone=phone,
 
             event=event,
-            # buyer=user_id,
             vendor=user,
-        #     address=address,
-        #     city=city,
-        #     state=state,
-        #     country=country
         )
 
         order.save()           
-        # print(order)
-        
-        # Cria um item na preferência
+
         sdk = mercadopago.SDK(env("MERCADO_ACCESS_KEY"))
 
         preference_data = {
@@ -397,7 +329,7 @@ class MercadoPagoPreferenceAPIView(generics.CreateAPIView):
         },
 
         "back_urls": {
-            "success": f'http://localhost:5173/mis-eventos/{event.eid}/ordenes/{order.oid}/',
+            "success": f'http://http://192.168.100.15:5173/mis-eventos/{event.eid}/ordenes/{order.oid}/',
             "pending": f'http://localhost:5173/mis-eventos/{event.eid}/',
             "failure": f'http://localhost:5173/mis-eventos/{event.eid}/',
 
@@ -412,12 +344,9 @@ class MercadoPagoPreferenceAPIView(generics.CreateAPIView):
         
 
         
-        
-
         preference_response = sdk.preference().create(preference_data)
-        # print(preference_response)
         preference = preference_response["response"]
-        # print(preference)
+        
         return Response({"preference":preference}, status=200)
 
 
@@ -429,19 +358,14 @@ class MercadoPagoNotificationAPIView(generics.CreateAPIView):
     
     def create(self, request, *args, **kwargs):
         payload = request.data
-        print(payload['orderID'])
-        print(request)
-        # Cria um item na preferência
+
         sdk = mercadopago.SDK(env("MERCADO_ACCESS_KEY"))
-        # order = sdk.merchant_order().get(merchan_order_id=payload["mercadoID"])
-        # print(order)
         order = PaymentOrder.objects.get(oid=payload['orderID'])
         
         headers = {"Authorization": f'Bearer {env("MERCADO_ACCESS_KEY")}'}
         res = requests.get(f'https://api.mercadopago.com/merchant_orders/{payload["mercadoID"]}', headers=headers) 
         res_dict = res.json()
-        # print(res_dict)
-        print(res_dict["status"])
+
         if(res_dict["status"] == "closed"):
             order.payment_status = "pagado"
             order.save()
@@ -488,22 +412,17 @@ class OrdersView(ModelViewSet):
 
 
     def get_queryset(self):
-        # print(self.request.user.id)
-        print(self.request.__dict__)
-        print(self.request.data)
-        print(self.kwargs)
         return PaymentOrder.objects.all().filter(payer = self.request.user.id).filter(event__eid = self.kwargs['eid'])
 
 
 class MyEventsAPIView(generics.ListAPIView):
     serializer_class = EventSerializer
     queryset = Event.objects.all()
-    ordering_fields = ['-date']
 
 
     def get_queryset(self):
-
-        return Event.objects.all().filter(client = self.request.user.id)
+        status = self.request.query_params.get('status')
+        return Event.objects.all().filter(client = self.request.user.id, status=status)
 
 
 class MyEventAPIView(generics.RetrieveAPIView):

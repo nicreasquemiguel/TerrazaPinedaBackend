@@ -1,15 +1,11 @@
 from django.db import models
 import datetime
-
-
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from shortuuid.django_fields import ShortUUIDField
 import uuid
 from django.utils.text import slugify
 from users.models import UserAccount, Profile
-
-# import store.models as store
 
 
 ICON_TYPE= (
@@ -140,8 +136,6 @@ class Event(models.Model):
             if self.advance >= self.total_price and self.status == "apartado":
                 self.status = "liquidado"
 
-        # self.rating = self.event_rating()
-        
         
         super(Event, self).save(*args, **kwargs)
 
@@ -150,7 +144,7 @@ class Event(models.Model):
 
 
     class Meta:
-        ordering = ['-date']
+        ordering = ['date']
 
 class VenueFeatures(models.Model):
     hotel = models.ForeignKey(Venue, on_delete=models.CASCADE)

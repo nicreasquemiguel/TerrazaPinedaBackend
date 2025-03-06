@@ -18,7 +18,8 @@ from datetime import timedelta
 
 
 
-env = Env().read_env()
+env = Env()
+env.read_env()
 
 
 
@@ -52,6 +53,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
     "http://localhost:5173",
+    "http://192.168.100.15:5173",
+    "http://192.168.100.15:8000",
 ]
 
 CORS_ALLOW_METHODS = (
@@ -115,6 +118,7 @@ INSTALLED_APPS = [
     #Exterior 
     'rest_framework',
     'rest_framework.authtoken',
+    'django_filters',
     'djoser',
     'corsheaders',
     'social_django',
@@ -212,7 +216,8 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema', 
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 5
+    'PAGE_SIZE': 5,
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 
 }
 
