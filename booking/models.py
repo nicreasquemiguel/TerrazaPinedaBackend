@@ -97,7 +97,7 @@ class Event(models.Model):
     slug = models.SlugField(unique = True, default="")
     payment_intent = models.CharField(max_length=1000, null=True, blank=True)
     eid = ShortUUIDField(default=uuid.uuid4, length=10, alphabet='abcdefg12345')
-    description = models.TextField(default='', null= False )
+    description = models.TextField(default='Evento', null= False )
 
 
     @property
